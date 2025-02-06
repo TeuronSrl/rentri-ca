@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.boarding_access_response import BoardingAccessResponse
+from rentri_ca.models.boarding_access_response import BoardingAccessResponse  # noqa: E501
 
 class TestBoardingAccessResponse(unittest.TestCase):
     """BoardingAccessResponse unit test stubs"""
@@ -28,12 +29,12 @@ class TestBoardingAccessResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BoardingAccessResponse:
         """Test BoardingAccessResponse
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BoardingAccessResponse`
         """
-        model = BoardingAccessResponse()
+        model = BoardingAccessResponse()  # noqa: E501
         if include_optional:
             return BoardingAccessResponse(
                 identificativo_soggetto = '',

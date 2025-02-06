@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.problem_details import ProblemDetails
+from rentri_ca.models.problem_details import ProblemDetails  # noqa: E501
 
 class TestProblemDetails(unittest.TestCase):
     """ProblemDetails unit test stubs"""
@@ -28,12 +29,12 @@ class TestProblemDetails(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ProblemDetails:
         """Test ProblemDetails
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ProblemDetails`
         """
-        model = ProblemDetails()
+        model = ProblemDetails()  # noqa: E501
         if include_optional:
             return ProblemDetails(
                 type = '',

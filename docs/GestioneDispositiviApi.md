@@ -19,8 +19,9 @@ Ottiene informazioni di dettaglio di un dispositivo.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.device_model import DeviceModel
 from rentri_ca.rest import ApiException
@@ -62,7 +63,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **device_id** | **str**| Criteri di ricerca dei dispositivi. | 
@@ -82,7 +82,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json, application/problem+json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Informazioni su dispositivo, app e credenziali. |  -  |
@@ -103,8 +102,9 @@ Ottiene l'elenco dei dispositivi, filtrati in base ai criteri specificati.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.device_model import DeviceModel
 from rentri_ca.rest import ApiException
@@ -151,7 +151,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **identificativo_soggetto** | **str**| Identificativo del soggetto. | 
@@ -176,7 +175,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json, application/problem+json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Elenco dei dispositivi corrispondenti ai criteri di ricerca specificati. |  * Paging-PageCount - Numero totale di pagine. <br>  * Paging-Page - Numero di pagina. <br>  * Paging-PageSize - Dimensione della pagina. <br>  * Paging-TotalRecordCount - Numero totale di record. <br>  |
@@ -198,8 +196,9 @@ Sincronizza le informazioni del dispositivo specificato e dell'app installata.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.sync_device_info_request import SyncDeviceInfoRequest
 from rentri_ca.rest import ApiException
@@ -238,7 +237,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sync_device_info_request** | [**SyncDeviceInfoRequest**](SyncDeviceInfoRequest.md)| Dati del dispositivo. | [optional] 
@@ -257,7 +255,6 @@ void (empty response body)
  - **Accept**: application/problem+json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Informazioni del dispositivo sincronizzate correttamente. |  -  |

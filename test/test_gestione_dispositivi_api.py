@@ -15,7 +15,7 @@
 
 import unittest
 
-from rentri_ca.api.gestione_dispositivi_api import GestioneDispositiviApi
+from rentri_ca.api.gestione_dispositivi_api import GestioneDispositiviApi  # noqa: E501
 
 
 class TestGestioneDispositiviApi(unittest.TestCase):
@@ -25,26 +25,26 @@ class TestGestioneDispositiviApi(unittest.TestCase):
         self.api = GestioneDispositiviApi()
 
     def tearDown(self) -> None:
-        pass
+        self.api.api_client.close()
 
     def test_devices_device_id_identificativo_soggetto_get(self) -> None:
         """Test case for devices_device_id_identificativo_soggetto_get
 
-        Dettaglio dispositivo
+        Dettaglio dispositivo  # noqa: E501
         """
         pass
 
     def test_devices_get(self) -> None:
         """Test case for devices_get
 
-        Elenco dispositivi
+        Elenco dispositivi  # noqa: E501
         """
         pass
 
     def test_devices_sync_put(self) -> None:
         """Test case for devices_sync_put
 
-        Sincronizza dispositivo
+        Sincronizza dispositivo  # noqa: E501
         """
         pass
 

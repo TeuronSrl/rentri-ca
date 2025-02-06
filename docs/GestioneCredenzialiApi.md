@@ -23,8 +23,9 @@ Verifica se il codice di boarding specificato è attivo e restituisce le informa
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.boarding_access_response import BoardingAccessResponse
 from rentri_ca.rest import ApiException
@@ -66,7 +67,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **qrcode_token** | **str**| Token letto dal QR Code di boarding. | 
@@ -86,7 +86,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json, application/problem+json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Accesso consentito. |  -  |
@@ -106,8 +105,9 @@ Imposta un nuovo PIN operativo per le credenziali specificate.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.change_pin_request import ChangePinRequest
 from rentri_ca.rest import ApiException
@@ -147,7 +147,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali | 
@@ -167,7 +166,6 @@ void (empty response body)
  - **Accept**: Not defined
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | PIN operativo modificato correttamente. |  -  |
@@ -189,8 +187,9 @@ Elimina le credenziali indicate.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.rest import ApiException
 from pprint import pprint
@@ -228,7 +227,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali da eliminare. | 
@@ -247,7 +245,6 @@ void (empty response body)
  - **Accept**: Not defined
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Credenziali eliminate. |  -  |
@@ -270,8 +267,9 @@ Ottiene le informazioni di dettaglio delle credenziali specificate.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_model import CredentialsModel
 from rentri_ca.rest import ApiException
@@ -312,7 +310,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali. | 
@@ -331,7 +328,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Dettaglio delle credenziali. |  -  |
@@ -352,8 +348,9 @@ Completa la procedura di reset del PIN operativo avviata tramite la dashboard di
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.reset_pin_request import ResetPinRequest
 from rentri_ca.rest import ApiException
@@ -393,7 +390,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali | 
@@ -413,7 +409,6 @@ void (empty response body)
  - **Accept**: Not defined
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Procedura di reset del PIN operativo completata e nuovo PIN impostato correttamente. |  -  |
@@ -435,8 +430,9 @@ Rimuove l'associazione delle credenziali con l'operatore o con l'unità locale s
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.rest import ApiException
 from pprint import pprint
@@ -475,7 +471,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali. | 
@@ -495,7 +490,6 @@ void (empty response body)
  - **Accept**: Not defined
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Associazione eliminata. |  -  |
@@ -517,8 +511,9 @@ Ottiene le informazioni sullo stato delle credenziali.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_status_response import CredentialsStatusResponse
 from rentri_ca.rest import ApiException
@@ -559,7 +554,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali. | 
@@ -578,7 +572,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Stato delle credenziali. |  -  |

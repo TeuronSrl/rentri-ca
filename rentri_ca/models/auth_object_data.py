@@ -18,83 +18,66 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from typing import Optional, Set
-from typing_extensions import Self
+
+from typing import Optional
+from pydantic import BaseModel, Field, StrictStr, constr, validator
 
 class AuthObjectData(BaseModel):
     """
     AuthObjectData
-    """ # noqa: E501
-    id: Annotated[str, Field(min_length=1, strict=True)]
+    """
+    id: constr(strict=True, min_length=1) = Field(...)
     value: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "value"]
+    __properties = ["id", "value"]
 
-    @field_validator('id')
+    @validator('id')
     def id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not re.match(r"(?i)^mobile$", value):
-            raise ValueError(r"must validate the regular expression /(?i)^mobile$/")
+        if not re.match(r"^[Mm][Oo][Bb][Ii][Ll][Ee]$", value):
+            raise ValueError(r"must validate the regular expression /^[Mm][Oo][Bb][Ii][Ll][Ee]$/")
         return value
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> AuthObjectData:
         """Create an instance of AuthObjectData from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if value (nullable) is None
-        # and model_fields_set contains the field
-        if self.value is None and "value" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.value is None and "value" in self.__fields_set__:
             _dict['value'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> AuthObjectData:
         """Create an instance of AuthObjectData from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return AuthObjectData.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = AuthObjectData.parse_obj({
             "id": obj.get("id"),
             "value": obj.get("value")
         })

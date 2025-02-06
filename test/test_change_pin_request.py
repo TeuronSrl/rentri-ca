@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.change_pin_request import ChangePinRequest
+from rentri_ca.models.change_pin_request import ChangePinRequest  # noqa: E501
 
 class TestChangePinRequest(unittest.TestCase):
     """ChangePinRequest unit test stubs"""
@@ -28,12 +29,12 @@ class TestChangePinRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ChangePinRequest:
         """Test ChangePinRequest
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ChangePinRequest`
         """
-        model = ChangePinRequest()
+        model = ChangePinRequest()  # noqa: E501
         if include_optional:
             return ChangePinRequest(
                 current_pin = '012345',

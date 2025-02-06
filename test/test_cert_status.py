@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.cert_status import CertStatus
+from rentri_ca.models.cert_status import CertStatus  # noqa: E501
 
 class TestCertStatus(unittest.TestCase):
     """CertStatus unit test stubs"""

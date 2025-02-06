@@ -18,90 +18,73 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+
+from typing import Dict, Optional
+from pydantic import BaseModel, Field, StrictStr, constr
 from rentri_ca.models.app_info import AppInfo
-from typing import Optional, Set
-from typing_extensions import Self
 
 class SyncDeviceInfoRequest(BaseModel):
     """
     SyncDeviceInfoRequest
-    """ # noqa: E501
-    identifier: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(description="Identificativo del dispositivo.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=150)] = Field(description="Nome.")
-    os_version: Annotated[str, Field(min_length=1, strict=True, max_length=14)] = Field(description="Versione del Sistema Operativo.")
-    notification_callback_uri: Annotated[str, Field(min_length=1, strict=True, max_length=2000)] = Field(description="URI di callback alla quale verranno inviati in POST i dati delle notifiche RENTRI.")
-    notification_callback_parameters: Dict[str, StrictStr] = Field(description="Dizionario di parametri custom che verranno inviati, tra i dati delle notifiche, all'URI di callback.")
+    """
+    identifier: constr(strict=True, max_length=50, min_length=1) = Field(default=..., description="Identificativo del dispositivo.")
+    name: constr(strict=True, max_length=150, min_length=1) = Field(default=..., description="Nome.")
+    os_version: constr(strict=True, max_length=14, min_length=1) = Field(default=..., description="Versione del Sistema Operativo.")
+    notification_callback_uri: constr(strict=True, max_length=2000, min_length=1) = Field(default=..., description="URI di callback alla quale verranno inviati in POST i dati delle notifiche RENTRI.")
+    notification_callback_parameters: Dict[str, StrictStr] = Field(default=..., description="Dizionario di parametri custom che verranno inviati, tra i dati delle notifiche, all'URI di callback.")
     app_info: Optional[AppInfo] = Field(default=None, description="Informazioni sulla App installata.")
-    __properties: ClassVar[List[str]] = ["identifier", "name", "os_version", "notification_callback_uri", "notification_callback_parameters", "app_info"]
+    __properties = ["identifier", "name", "os_version", "notification_callback_uri", "notification_callback_parameters", "app_info"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> SyncDeviceInfoRequest:
         """Create an instance of SyncDeviceInfoRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # override the default output from pydantic by calling `to_dict()` of app_info
         if self.app_info:
             _dict['app_info'] = self.app_info.to_dict()
         # set to None if app_info (nullable) is None
-        # and model_fields_set contains the field
-        if self.app_info is None and "app_info" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.app_info is None and "app_info" in self.__fields_set__:
             _dict['app_info'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> SyncDeviceInfoRequest:
         """Create an instance of SyncDeviceInfoRequest from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return SyncDeviceInfoRequest.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = SyncDeviceInfoRequest.parse_obj({
             "identifier": obj.get("identifier"),
             "name": obj.get("name"),
             "os_version": obj.get("os_version"),
             "notification_callback_uri": obj.get("notification_callback_uri"),
             "notification_callback_parameters": obj.get("notification_callback_parameters"),
-            "app_info": AppInfo.from_dict(obj["app_info"]) if obj.get("app_info") is not None else None
+            "app_info": AppInfo.from_dict(obj.get("app_info")) if obj.get("app_info") is not None else None
         })
         return _obj
 

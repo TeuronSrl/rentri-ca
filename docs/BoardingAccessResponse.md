@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identificativo_soggetto** | **str** | Identificativo del soggetto. | [optional] 
@@ -21,7 +20,7 @@ json = "{}"
 # create an instance of BoardingAccessResponse from a JSON string
 boarding_access_response_instance = BoardingAccessResponse.from_json(json)
 # print the JSON string representation of the object
-print(BoardingAccessResponse.to_json())
+print BoardingAccessResponse.to_json()
 
 # convert the object into a dict
 boarding_access_response_dict = boarding_access_response_instance.to_dict()

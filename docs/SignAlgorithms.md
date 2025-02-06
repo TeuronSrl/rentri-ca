@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **algos** | **List[str]** | Elenco degli algoritmi di firma supportati dal servizio. | [optional] 
@@ -18,7 +17,7 @@ json = "{}"
 # create an instance of SignAlgorithms from a JSON string
 sign_algorithms_instance = SignAlgorithms.from_json(json)
 # print the JSON string representation of the object
-print(SignAlgorithms.to_json())
+print SignAlgorithms.to_json()
 
 # convert the object into a dict
 sign_algorithms_dict = sign_algorithms_instance.to_dict()

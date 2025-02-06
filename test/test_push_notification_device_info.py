@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.push_notification_device_info import PushNotificationDeviceInfo
+from rentri_ca.models.push_notification_device_info import PushNotificationDeviceInfo  # noqa: E501
 
 class TestPushNotificationDeviceInfo(unittest.TestCase):
     """PushNotificationDeviceInfo unit test stubs"""
@@ -28,12 +29,12 @@ class TestPushNotificationDeviceInfo(unittest.TestCase):
 
     def make_instance(self, include_optional) -> PushNotificationDeviceInfo:
         """Test PushNotificationDeviceInfo
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `PushNotificationDeviceInfo`
         """
-        model = PushNotificationDeviceInfo()
+        model = PushNotificationDeviceInfo()  # noqa: E501
         if include_optional:
             return PushNotificationDeviceInfo(
                 type = 'Notification',

@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.auth_object_data import AuthObjectData
+from rentri_ca.models.auth_object_data import AuthObjectData  # noqa: E501
 
 class TestAuthObjectData(unittest.TestCase):
     """AuthObjectData unit test stubs"""
@@ -28,20 +29,20 @@ class TestAuthObjectData(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AuthObjectData:
         """Test AuthObjectData
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AuthObjectData`
         """
-        model = AuthObjectData()
+        model = AuthObjectData()  # noqa: E501
         if include_optional:
             return AuthObjectData(
-                id = ERROR_TO_EXAMPLE_VALUE,
+                id = 'moBILE0',
                 value = ''
             )
         else:
             return AuthObjectData(
-                id = ERROR_TO_EXAMPLE_VALUE,
+                id = 'moBILE0',
         )
         """
 

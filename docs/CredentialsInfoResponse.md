@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** | Descrizione delle credenziali. | [optional] 
@@ -24,7 +23,7 @@ json = "{}"
 # create an instance of CredentialsInfoResponse from a JSON string
 credentials_info_response_instance = CredentialsInfoResponse.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsInfoResponse.to_json())
+print CredentialsInfoResponse.to_json()
 
 # convert the object into a dict
 credentials_info_response_dict = credentials_info_response_instance.to_dict()

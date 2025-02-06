@@ -3,7 +3,6 @@
 Informazioni sulla App.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Nome dell&#39;applicazione. | 
@@ -21,7 +20,7 @@ json = "{}"
 # create an instance of AppInfo from a JSON string
 app_info_instance = AppInfo.from_json(json)
 # print the JSON string representation of the object
-print(AppInfo.to_json())
+print AppInfo.to_json()
 
 # convert the object into a dict
 app_info_dict = app_info_instance.to_dict()

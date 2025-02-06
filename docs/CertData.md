@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**CertStatus**](CertStatus.md) | Stato del certificato.&lt;p&gt;Valori ammessi:&lt;ul style&#x3D;\&quot;margin:0\&quot;&gt;&lt;li&gt;&lt;i&gt;Valid&lt;/i&gt; - Valido.&lt;/li&gt;&lt;li&gt;&lt;i&gt;Expired&lt;/i&gt; - Scaduto.&lt;/li&gt;&lt;li&gt;&lt;i&gt;Revoked&lt;/i&gt; - Revocato.&lt;/li&gt;&lt;li&gt;&lt;i&gt;Suspended&lt;/i&gt; - Sospeso.&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt; | [optional] 
@@ -23,7 +22,7 @@ json = "{}"
 # create an instance of CertData from a JSON string
 cert_data_instance = CertData.from_json(json)
 # print the JSON string representation of the object
-print(CertData.to_json())
+print CertData.to_json()
 
 # convert the object into a dict
 cert_data_dict = cert_data_instance.to_dict()

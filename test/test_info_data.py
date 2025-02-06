@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.info_data import InfoData
+from rentri_ca.models.info_data import InfoData  # noqa: E501
 
 class TestInfoData(unittest.TestCase):
     """InfoData unit test stubs"""
@@ -28,12 +29,12 @@ class TestInfoData(unittest.TestCase):
 
     def make_instance(self, include_optional) -> InfoData:
         """Test InfoData
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `InfoData`
         """
-        model = InfoData()
+        model = InfoData()  # noqa: E501
         if include_optional:
             return InfoData(
                 specs = '',

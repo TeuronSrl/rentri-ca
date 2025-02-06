@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.create_update_credentials_response import CreateUpdateCredentialsResponse
+from rentri_ca.models.create_update_credentials_response import CreateUpdateCredentialsResponse  # noqa: E501
 
 class TestCreateUpdateCredentialsResponse(unittest.TestCase):
     """CreateUpdateCredentialsResponse unit test stubs"""
@@ -28,12 +29,12 @@ class TestCreateUpdateCredentialsResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateUpdateCredentialsResponse:
         """Test CreateUpdateCredentialsResponse
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateUpdateCredentialsResponse`
         """
-        model = CreateUpdateCredentialsResponse()
+        model = CreateUpdateCredentialsResponse()  # noqa: E501
         if include_optional:
             return CreateUpdateCredentialsResponse(
                 credentials_id = '',

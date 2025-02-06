@@ -15,7 +15,7 @@
 
 import unittest
 
-from rentri_ca.api.gestione_credenziali_api import GestioneCredenzialiApi
+from rentri_ca.api.gestione_credenziali_api import GestioneCredenzialiApi  # noqa: E501
 
 
 class TestGestioneCredenzialiApi(unittest.TestCase):
@@ -25,54 +25,54 @@ class TestGestioneCredenzialiApi(unittest.TestCase):
         self.api = GestioneCredenzialiApi()
 
     def tearDown(self) -> None:
-        pass
+        self.api.api_client.close()
 
     def test_credentials_boarding_qrcode_token_get(self) -> None:
         """Test case for credentials_boarding_qrcode_token_get
 
-        Informazioni boarding
+        Informazioni boarding  # noqa: E501
         """
         pass
 
     def test_credentials_credentials_id_change_pin_put(self) -> None:
         """Test case for credentials_credentials_id_change_pin_put
 
-        Cambio PIN
+        Cambio PIN  # noqa: E501
         """
         pass
 
     def test_credentials_credentials_id_delete(self) -> None:
         """Test case for credentials_credentials_id_delete
 
-        Elimina credenziali
+        Elimina credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_credentials_id_get(self) -> None:
         """Test case for credentials_credentials_id_get
 
-        Dettaglio credenziali
+        Dettaglio credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_credentials_id_reset_pin_put(self) -> None:
         """Test case for credentials_credentials_id_reset_pin_put
 
-        Reset PIN
+        Reset PIN  # noqa: E501
         """
         pass
 
     def test_credentials_credentials_id_rimuovi_associazione_delete(self) -> None:
         """Test case for credentials_credentials_id_rimuovi_associazione_delete
 
-        Rimuovi associazione credenziali
+        Rimuovi associazione credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_credentials_id_status_get(self) -> None:
         """Test case for credentials_credentials_id_status_get
 
-        Stato credenziali
+        Stato credenziali  # noqa: E501
         """
         pass
 

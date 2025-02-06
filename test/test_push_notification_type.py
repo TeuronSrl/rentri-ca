@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.push_notification_type import PushNotificationType
+from rentri_ca.models.push_notification_type import PushNotificationType  # noqa: E501
 
 class TestPushNotificationType(unittest.TestCase):
     """PushNotificationType unit test stubs"""

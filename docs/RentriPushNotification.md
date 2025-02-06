@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **action** | **str** |  | [optional] 
@@ -22,7 +21,7 @@ json = "{}"
 # create an instance of RentriPushNotification from a JSON string
 rentri_push_notification_instance = RentriPushNotification.from_json(json)
 # print the JSON string representation of the object
-print(RentriPushNotification.to_json())
+print RentriPushNotification.to_json()
 
 # convert the object into a dict
 rentri_push_notification_dict = rentri_push_notification_instance.to_dict()

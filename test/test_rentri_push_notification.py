@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.rentri_push_notification import RentriPushNotification
+from rentri_ca.models.rentri_push_notification import RentriPushNotification  # noqa: E501
 
 class TestRentriPushNotification(unittest.TestCase):
     """RentriPushNotification unit test stubs"""
@@ -28,12 +29,12 @@ class TestRentriPushNotification(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RentriPushNotification:
         """Test RentriPushNotification
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `RentriPushNotification`
         """
-        model = RentriPushNotification()
+        model = RentriPushNotification()  # noqa: E501
         if include_optional:
             return RentriPushNotification(
                 action = '',

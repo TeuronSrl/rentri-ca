@@ -18,26 +18,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from typing import Optional, Set
-from typing_extensions import Self
+
+from typing import List, Optional
+from pydantic import BaseModel, Field, StrictStr, conlist, constr, validator
 
 class SignatureRequest(BaseModel):
     """
     SignatureRequest
-    """ # noqa: E501
-    credentials_id: Annotated[str, Field(min_length=9, strict=True, max_length=9)] = Field(description="Identificativo delle credenziali di firma.")
-    sad: Annotated[str, Field(min_length=1, strict=True)] = Field(description="SAD (Signature Activation Data).")
-    hashes: Annotated[List[StrictStr], Field(min_length=1, max_length=1)] = Field(description="Elenco dei codici hash da firmare in formato base 64. Attualmente è consentito l'invio di un solo codice hash.")
-    hash_algo: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="OID dell'algoritmo utilizzato per calcolare l'hash. Questo parametro deve essere omesso o ignorato se l'algoritmo hash è implicitamente specificato dal parametro SignAlgo.")
-    sign_algo: Annotated[str, Field(min_length=1, strict=True)] = Field(description="OID dell'algoritmo da utilizzare per la firma. Deve essere uno dei valori consentiti dalle credenziali.")
+    """
+    credentials_id: constr(strict=True, max_length=9, min_length=9) = Field(default=..., description="Identificativo delle credenziali di firma.")
+    sad: constr(strict=True, min_length=1) = Field(default=..., description="SAD (Signature Activation Data).")
+    hashes: conlist(StrictStr, max_items=1, min_items=1) = Field(default=..., description="Elenco dei codici hash da firmare in formato base 64. Attualmente è consentito l'invio di un solo codice hash.")
+    hash_algo: Optional[constr(strict=True)] = Field(default=None, description="OID dell'algoritmo utilizzato per calcolare l'hash. Questo parametro deve essere omesso o ignorato se l'algoritmo hash è implicitamente specificato dal parametro SignAlgo.")
+    sign_algo: constr(strict=True, min_length=1) = Field(default=..., description="OID dell'algoritmo da utilizzare per la firma. Deve essere uno dei valori consentiti dalle credenziali.")
     sign_algo_params: Optional[StrictStr] = Field(default=None, description="I parametri per l'algoritmo di firma, se richiesti dall'algoritmo di firma.")
     client_data: Optional[StrictStr] = Field(default=None, description="Dati arbitrari dell'applicazione di firma.")
-    __properties: ClassVar[List[str]] = ["credentials_id", "sad", "hashes", "hash_algo", "sign_algo", "sign_algo_params", "client_data"]
+    __properties = ["credentials_id", "sad", "hashes", "hash_algo", "sign_algo", "sign_algo_params", "client_data"]
 
-    @field_validator('hash_algo')
+    @validator('hash_algo')
     def hash_algo_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
@@ -47,79 +45,64 @@ class SignatureRequest(BaseModel):
             raise ValueError(r"must validate the regular expression /^2\.16\.840\.1\.101\.3\.4\.2\.1$/")
         return value
 
-    @field_validator('sign_algo')
+    @validator('sign_algo')
     def sign_algo_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if not re.match(r"^1\.2\.840\.10045\.4\.3\.2$", value):
             raise ValueError(r"must validate the regular expression /^1\.2\.840\.10045\.4\.3\.2$/")
         return value
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> SignatureRequest:
         """Create an instance of SignatureRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if hash_algo (nullable) is None
-        # and model_fields_set contains the field
-        if self.hash_algo is None and "hash_algo" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.hash_algo is None and "hash_algo" in self.__fields_set__:
             _dict['hash_algo'] = None
 
         # set to None if sign_algo_params (nullable) is None
-        # and model_fields_set contains the field
-        if self.sign_algo_params is None and "sign_algo_params" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.sign_algo_params is None and "sign_algo_params" in self.__fields_set__:
             _dict['sign_algo_params'] = None
 
         # set to None if client_data (nullable) is None
-        # and model_fields_set contains the field
-        if self.client_data is None and "client_data" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.client_data is None and "client_data" in self.__fields_set__:
             _dict['client_data'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> SignatureRequest:
         """Create an instance of SignatureRequest from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return SignatureRequest.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = SignatureRequest.parse_obj({
             "credentials_id": obj.get("credentials_id"),
             "sad": obj.get("sad"),
             "hashes": obj.get("hashes"),

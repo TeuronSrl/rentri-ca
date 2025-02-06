@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**PushNotificationType**](PushNotificationType.md) |  | [optional] [readonly] 
@@ -20,7 +19,7 @@ json = "{}"
 # create an instance of PushNotification from a JSON string
 push_notification_instance = PushNotification.from_json(json)
 # print the JSON string representation of the object
-print(PushNotification.to_json())
+print PushNotification.to_json()
 
 # convert the object into a dict
 push_notification_dict = push_notification_instance.to_dict()

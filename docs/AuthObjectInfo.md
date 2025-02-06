@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | [optional] 
@@ -22,7 +21,7 @@ json = "{}"
 # create an instance of AuthObjectInfo from a JSON string
 auth_object_info_instance = AuthObjectInfo.from_json(json)
 # print the JSON string representation of the object
-print(AuthObjectInfo.to_json())
+print AuthObjectInfo.to_json()
 
 # convert the object into a dict
 auth_object_info_dict = auth_object_info_instance.to_dict()

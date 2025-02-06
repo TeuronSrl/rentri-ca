@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identifier** | **str** |  | 
@@ -19,7 +18,7 @@ json = "{}"
 # create an instance of PushNotificationDevice from a JSON string
 push_notification_device_instance = PushNotificationDevice.from_json(json)
 # print the JSON string representation of the object
-print(PushNotificationDevice.to_json())
+print PushNotificationDevice.to_json()
 
 # convert the object into a dict
 push_notification_device_dict = push_notification_device_instance.to_dict()

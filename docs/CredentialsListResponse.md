@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **credentials_ids** | **List[str]** | Uno o più identificativi delle credenziali associate al dispositivo. | [optional] 
@@ -19,7 +18,7 @@ json = "{}"
 # create an instance of CredentialsListResponse from a JSON string
 credentials_list_response_instance = CredentialsListResponse.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsListResponse.to_json())
+print CredentialsListResponse.to_json()
 
 # convert the object into a dict
 credentials_list_response_dict = credentials_list_response_instance.to_dict()

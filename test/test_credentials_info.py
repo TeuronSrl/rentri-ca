@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.credentials_info import CredentialsInfo
+from rentri_ca.models.credentials_info import CredentialsInfo  # noqa: E501
 
 class TestCredentialsInfo(unittest.TestCase):
     """CredentialsInfo unit test stubs"""
@@ -28,12 +29,12 @@ class TestCredentialsInfo(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CredentialsInfo:
         """Test CredentialsInfo
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CredentialsInfo`
         """
-        model = CredentialsInfo()
+        model = CredentialsInfo()  # noqa: E501
         if include_optional:
             return CredentialsInfo(
                 credentials_id = '',

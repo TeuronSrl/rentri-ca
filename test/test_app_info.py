@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.app_info import AppInfo
+from rentri_ca.models.app_info import AppInfo  # noqa: E501
 
 class TestAppInfo(unittest.TestCase):
     """AppInfo unit test stubs"""
@@ -28,12 +29,12 @@ class TestAppInfo(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AppInfo:
         """Test AppInfo
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AppInfo`
         """
-        model = AppInfo()
+        model = AppInfo()  # noqa: E501
         if include_optional:
             return AppInfo(
                 name = '0',

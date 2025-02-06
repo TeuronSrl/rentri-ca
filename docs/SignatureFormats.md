@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **formats** | **List[str]** | Elenco dei formati di firma supportati dal servizio. | [optional] 
@@ -18,7 +17,7 @@ json = "{}"
 # create an instance of SignatureFormats from a JSON string
 signature_formats_instance = SignatureFormats.from_json(json)
 # print the JSON string representation of the object
-print(SignatureFormats.to_json())
+print SignatureFormats.to_json()
 
 # convert the object into a dict
 signature_formats_dict = signature_formats_instance.to_dict()

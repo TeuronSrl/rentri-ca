@@ -3,7 +3,6 @@
 Informazioni sul dispositivo.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identifier** | **str** | Identificativo del dispositivo. | 
@@ -27,7 +26,7 @@ json = "{}"
 # create an instance of DeviceInfo from a JSON string
 device_info_instance = DeviceInfo.from_json(json)
 # print the JSON string representation of the object
-print(DeviceInfo.to_json())
+print DeviceInfo.to_json()
 
 # convert the object into a dict
 device_info_dict = device_info_instance.to_dict()

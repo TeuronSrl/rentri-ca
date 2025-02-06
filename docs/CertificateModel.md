@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **certificato** | **str** |  | [optional] 
@@ -20,7 +19,7 @@ json = "{}"
 # create an instance of CertificateModel from a JSON string
 certificate_model_instance = CertificateModel.from_json(json)
 # print the JSON string representation of the object
-print(CertificateModel.to_json())
+print CertificateModel.to_json()
 
 # convert the object into a dict
 certificate_model_dict = certificate_model_instance.to_dict()

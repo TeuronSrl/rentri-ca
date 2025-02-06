@@ -19,16 +19,14 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import List, Optional
+from pydantic import BaseModel, Field, StrictBool, StrictStr, conlist
 from rentri_ca.models.stato import Stato
-from typing import Optional, Set
-from typing_extensions import Self
 
 class CredentialsModel(BaseModel):
     """
-    Dati delle credenziali.
-    """ # noqa: E501
+    Dati delle credenziali.  # noqa: E501
+    """
     identifier: Optional[StrictStr] = Field(default=None, description="Identificativo delle credenziali.")
     identificativo: Optional[StrictStr] = Field(default=None, description="Identificativo del soggetto associato alle credenziali.")
     identificativo_altro: Optional[StrictStr] = Field(default=None, description="Identificativo alternativo del soggetto associato alle credenziali.")
@@ -37,107 +35,92 @@ class CredentialsModel(BaseModel):
     data_eliminazione: Optional[datetime] = Field(default=None, description="Data di eliminazione (formato ISO 8601 UTC).")
     data_scadenza_richiesta_pin_reset: Optional[datetime] = Field(default=None, description="Data di scadenza della richiesta di reset del PIN (formato ISO 8601 UTC).")
     stato: Optional[Stato] = Field(default=None, description="Stato.")
-    siti: Optional[List[StrictStr]] = Field(default=None, description="Elenco delle unità locali sulle quali è possibile operare.")
+    siti: Optional[conlist(StrictStr)] = Field(default=None, description="Elenco delle unità locali sulle quali è possibile operare.")
     device_identifier: Optional[StrictStr] = Field(default=None, description="Identificativo del dispositivo.")
     device_is_banned: Optional[StrictBool] = Field(default=None, description="Indica se il device è stato bloccato.")
-    __properties: ClassVar[List[str]] = ["identifier", "identificativo", "identificativo_altro", "user_name", "ultimo_accesso", "data_eliminazione", "data_scadenza_richiesta_pin_reset", "stato", "siti", "device_identifier", "device_is_banned"]
+    __properties = ["identifier", "identificativo", "identificativo_altro", "user_name", "ultimo_accesso", "data_eliminazione", "data_scadenza_richiesta_pin_reset", "stato", "siti", "device_identifier", "device_is_banned"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CredentialsModel:
         """Create an instance of CredentialsModel from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if identifier (nullable) is None
-        # and model_fields_set contains the field
-        if self.identifier is None and "identifier" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.identifier is None and "identifier" in self.__fields_set__:
             _dict['identifier'] = None
 
         # set to None if identificativo (nullable) is None
-        # and model_fields_set contains the field
-        if self.identificativo is None and "identificativo" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.identificativo is None and "identificativo" in self.__fields_set__:
             _dict['identificativo'] = None
 
         # set to None if identificativo_altro (nullable) is None
-        # and model_fields_set contains the field
-        if self.identificativo_altro is None and "identificativo_altro" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.identificativo_altro is None and "identificativo_altro" in self.__fields_set__:
             _dict['identificativo_altro'] = None
 
         # set to None if user_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.user_name is None and "user_name" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.user_name is None and "user_name" in self.__fields_set__:
             _dict['user_name'] = None
 
         # set to None if ultimo_accesso (nullable) is None
-        # and model_fields_set contains the field
-        if self.ultimo_accesso is None and "ultimo_accesso" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.ultimo_accesso is None and "ultimo_accesso" in self.__fields_set__:
             _dict['ultimo_accesso'] = None
 
         # set to None if data_eliminazione (nullable) is None
-        # and model_fields_set contains the field
-        if self.data_eliminazione is None and "data_eliminazione" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.data_eliminazione is None and "data_eliminazione" in self.__fields_set__:
             _dict['data_eliminazione'] = None
 
         # set to None if data_scadenza_richiesta_pin_reset (nullable) is None
-        # and model_fields_set contains the field
-        if self.data_scadenza_richiesta_pin_reset is None and "data_scadenza_richiesta_pin_reset" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.data_scadenza_richiesta_pin_reset is None and "data_scadenza_richiesta_pin_reset" in self.__fields_set__:
             _dict['data_scadenza_richiesta_pin_reset'] = None
 
         # set to None if siti (nullable) is None
-        # and model_fields_set contains the field
-        if self.siti is None and "siti" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.siti is None and "siti" in self.__fields_set__:
             _dict['siti'] = None
 
         # set to None if device_identifier (nullable) is None
-        # and model_fields_set contains the field
-        if self.device_identifier is None and "device_identifier" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.device_identifier is None and "device_identifier" in self.__fields_set__:
             _dict['device_identifier'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> CredentialsModel:
         """Create an instance of CredentialsModel from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return CredentialsModel.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = CredentialsModel.parse_obj({
             "identifier": obj.get("identifier"),
             "identificativo": obj.get("identificativo"),
             "identificativo_altro": obj.get("identificativo_altro"),

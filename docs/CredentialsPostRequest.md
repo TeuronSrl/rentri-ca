@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**PushNotificationType**](PushNotificationType.md) |  | [optional] [readonly] 
@@ -23,7 +22,7 @@ json = "{}"
 # create an instance of CredentialsPostRequest from a JSON string
 credentials_post_request_instance = CredentialsPostRequest.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsPostRequest.to_json())
+print CredentialsPostRequest.to_json()
 
 # convert the object into a dict
 credentials_post_request_dict = credentials_post_request_instance.to_dict()

@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.certificate_model import CertificateModel
+from rentri_ca.models.certificate_model import CertificateModel  # noqa: E501
 
 class TestCertificateModel(unittest.TestCase):
     """CertificateModel unit test stubs"""
@@ -28,12 +29,12 @@ class TestCertificateModel(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CertificateModel:
         """Test CertificateModel
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CertificateModel`
         """
-        model = CertificateModel()
+        model = CertificateModel()  # noqa: E501
         if include_optional:
             return CertificateModel(
                 certificato = '',

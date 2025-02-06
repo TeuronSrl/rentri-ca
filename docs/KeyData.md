@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**KeyStatus**](KeyStatus.md) | Stato della chiave di firma.&lt;p&gt;Valori ammessi:&lt;ul style&#x3D;\&quot;margin:0\&quot;&gt;&lt;li&gt;&lt;i&gt;Enabled&lt;/i&gt; - Chiave abilitata ed utilizzabile per la firma.&lt;/li&gt;&lt;li&gt;&lt;i&gt;Disabled&lt;/i&gt; - Chiave disabilitata e non utilizzabile per la firma.&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt; | [optional] 
@@ -20,7 +19,7 @@ json = "{}"
 # create an instance of KeyData from a JSON string
 key_data_instance = KeyData.from_json(json)
 # print the JSON string representation of the object
-print(KeyData.to_json())
+print KeyData.to_json()
 
 # convert the object into a dict
 key_data_dict = key_data_instance.to_dict()

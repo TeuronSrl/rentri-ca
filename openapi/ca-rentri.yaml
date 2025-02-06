@@ -49,6 +49,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
           content:
@@ -92,6 +94,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
           content:
@@ -142,6 +146,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
       callbacks:
@@ -206,6 +212,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
     delete:
@@ -243,6 +251,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   '/credentials/{credentials_id}/change-pin':
@@ -286,6 +296,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string                
         '500':
           description: Errore non gestito (contattare l'assistenza).
   '/credentials/{credentials_id}/reset-pin':
@@ -334,6 +346,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   '/credentials/{credentials_id}/rimuovi-associazione':
@@ -380,6 +394,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   '/credentials/{credentials_id}/status':
@@ -416,6 +432,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   /credentials/authorize:
@@ -462,6 +480,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   '/credentials/authorize-check/{handle}':
@@ -517,6 +537,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   /credentials/authorize-confirmation:
@@ -557,6 +579,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   '/credentials/authorizeCheck/{handle}':
@@ -614,6 +638,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
       deprecated: true
@@ -657,6 +683,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
       deprecated: true
@@ -704,6 +732,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
           content:
@@ -790,6 +820,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   /credentials/list:
@@ -890,6 +922,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   /devices:
@@ -1001,6 +1035,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
           content:
@@ -1048,6 +1084,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
           content:
@@ -1086,6 +1124,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
           content:
@@ -1124,6 +1164,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
   /signatures/sign-hash:
     post:
       tags:
@@ -1160,6 +1202,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
   /signatures/signHash:
@@ -1198,6 +1242,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Errore non gestito (contattare l'assistenza).
       deprecated: true
@@ -1221,6 +1267,8 @@ paths:
               description: >-
                 Indica quanto tempo il fruitore deve attendere prima di
                 effettuare una nuova richiesta.
+              schema:
+                type: string
         '500':
           description: Internal Server Error
           content:
@@ -1303,7 +1351,7 @@ components:
       properties:
         id:
           minLength: 1
-          pattern: (?i)^mobile$
+          pattern: ^[Mm][Oo][Bb][Ii][Ll][Ee]$
           type: string
         value:
           type: string

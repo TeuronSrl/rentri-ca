@@ -18,19 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+
+from typing import Optional
+from pydantic import BaseModel, Field, StrictInt, StrictStr
 from rentri_ca.models.auth_data import AuthData
 from rentri_ca.models.cert_data import CertData
 from rentri_ca.models.key_data import KeyData
 from rentri_ca.models.signature_qualifier import SignatureQualifier
-from typing import Optional, Set
-from typing_extensions import Self
 
 class CredentialsInfo(BaseModel):
     """
     CredentialsInfo
-    """ # noqa: E501
+    """
     credentials_id: Optional[StrictStr] = Field(default=None, description="Identificativo delle credenziali.")
     description: Optional[StrictStr] = Field(default=None, description="Descrizione delle credenziali.")
     signature_qualifier: Optional[SignatureQualifier] = Field(default=None, description="Identificativo che qualifica il tipo di firma per cui sono adatte le credenziali.")
@@ -40,47 +39,32 @@ class CredentialsInfo(BaseModel):
     scal: Optional[StrictStr] = Field(default=None, description="Indica se il servizio di autorizzazione genera un Signature Activation Data (SAD) che contiene un collegamento con i codici hash da firmare. 1 - non collegato (default) 2 - collegato")
     multisign: Optional[StrictInt] = Field(default=None, description="Numero massimo di firme che possono essere create con queste credenziali con una singola richiesta.")
     lang: Optional[StrictStr] = Field(default=None, description="Lingua prescelta per la risposta, specificata secondo RFC 5646.")
-    __properties: ClassVar[List[str]] = ["credentials_id", "description", "signature_qualifier", "key", "cert", "auth", "scal", "multisign", "lang"]
+    __properties = ["credentials_id", "description", "signature_qualifier", "key", "cert", "auth", "scal", "multisign", "lang"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CredentialsInfo:
         """Create an instance of CredentialsInfo from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # override the default output from pydantic by calling `to_dict()` of key
         if self.key:
             _dict['key'] = self.key.to_dict()
@@ -91,68 +75,68 @@ class CredentialsInfo(BaseModel):
         if self.auth:
             _dict['auth'] = self.auth.to_dict()
         # set to None if credentials_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.credentials_id is None and "credentials_id" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.credentials_id is None and "credentials_id" in self.__fields_set__:
             _dict['credentials_id'] = None
 
         # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.description is None and "description" in self.__fields_set__:
             _dict['description'] = None
 
         # set to None if signature_qualifier (nullable) is None
-        # and model_fields_set contains the field
-        if self.signature_qualifier is None and "signature_qualifier" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.signature_qualifier is None and "signature_qualifier" in self.__fields_set__:
             _dict['signature_qualifier'] = None
 
         # set to None if key (nullable) is None
-        # and model_fields_set contains the field
-        if self.key is None and "key" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.key is None and "key" in self.__fields_set__:
             _dict['key'] = None
 
         # set to None if cert (nullable) is None
-        # and model_fields_set contains the field
-        if self.cert is None and "cert" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.cert is None and "cert" in self.__fields_set__:
             _dict['cert'] = None
 
         # set to None if auth (nullable) is None
-        # and model_fields_set contains the field
-        if self.auth is None and "auth" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.auth is None and "auth" in self.__fields_set__:
             _dict['auth'] = None
 
         # set to None if scal (nullable) is None
-        # and model_fields_set contains the field
-        if self.scal is None and "scal" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.scal is None and "scal" in self.__fields_set__:
             _dict['scal'] = None
 
         # set to None if multisign (nullable) is None
-        # and model_fields_set contains the field
-        if self.multisign is None and "multisign" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.multisign is None and "multisign" in self.__fields_set__:
             _dict['multisign'] = None
 
         # set to None if lang (nullable) is None
-        # and model_fields_set contains the field
-        if self.lang is None and "lang" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.lang is None and "lang" in self.__fields_set__:
             _dict['lang'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> CredentialsInfo:
         """Create an instance of CredentialsInfo from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return CredentialsInfo.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = CredentialsInfo.parse_obj({
             "credentials_id": obj.get("credentials_id"),
             "description": obj.get("description"),
             "signature_qualifier": obj.get("signature_qualifier"),
-            "key": KeyData.from_dict(obj["key"]) if obj.get("key") is not None else None,
-            "cert": CertData.from_dict(obj["cert"]) if obj.get("cert") is not None else None,
-            "auth": AuthData.from_dict(obj["auth"]) if obj.get("auth") is not None else None,
+            "key": KeyData.from_dict(obj.get("key")) if obj.get("key") is not None else None,
+            "cert": CertData.from_dict(obj.get("cert")) if obj.get("cert") is not None else None,
+            "auth": AuthData.from_dict(obj.get("auth")) if obj.get("auth") is not None else None,
             "scal": obj.get("scal"),
             "multisign": obj.get("multisign"),
             "lang": obj.get("lang")

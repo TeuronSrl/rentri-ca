@@ -3,7 +3,6 @@
 Dati delle credenziali.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identifier** | **str** | Identificativo delle credenziali. | [optional] 
@@ -28,7 +27,7 @@ json = "{}"
 # create an instance of CredentialsModel from a JSON string
 credentials_model_instance = CredentialsModel.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsModel.to_json())
+print CredentialsModel.to_json()
 
 # convert the object into a dict
 credentials_model_dict = credentials_model_instance.to_dict()

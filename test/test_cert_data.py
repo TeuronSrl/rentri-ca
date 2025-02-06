@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.cert_data import CertData
+from rentri_ca.models.cert_data import CertData  # noqa: E501
 
 class TestCertData(unittest.TestCase):
     """CertData unit test stubs"""
@@ -28,12 +29,12 @@ class TestCertData(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CertData:
         """Test CertData
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CertData`
         """
-        model = CertData()
+        model = CertData()  # noqa: E501
         if include_optional:
             return CertData(
                 status = 'Valid',

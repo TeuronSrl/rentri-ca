@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.signature_qualifier import SignatureQualifier
+from rentri_ca.models.signature_qualifier import SignatureQualifier  # noqa: E501
 
 class TestSignatureQualifier(unittest.TestCase):
     """SignatureQualifier unit test stubs"""

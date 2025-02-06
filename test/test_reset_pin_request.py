@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.reset_pin_request import ResetPinRequest
+from rentri_ca.models.reset_pin_request import ResetPinRequest  # noqa: E501
 
 class TestResetPinRequest(unittest.TestCase):
     """ResetPinRequest unit test stubs"""
@@ -28,12 +29,12 @@ class TestResetPinRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ResetPinRequest:
         """Test ResetPinRequest
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ResetPinRequest`
         """
-        model = ResetPinRequest()
+        model = ResetPinRequest()  # noqa: E501
         if include_optional:
             return ResetPinRequest(
                 token = '',

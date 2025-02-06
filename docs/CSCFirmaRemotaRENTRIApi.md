@@ -27,8 +27,9 @@ Verifica lo stato dell'autorizzazione delle credenziali.  Per ulteriori informaz
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_authorize_response import CredentialsAuthorizeResponse
 from rentri_ca.rest import ApiException
@@ -69,7 +70,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **handle** | **str**| Handle del SAD per verificare lo stato di autorizzazione della richiesta. | 
@@ -88,7 +88,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Autorizzazione concessa. |  -  |
@@ -111,8 +110,9 @@ Verifica lo stato dell'autorizzazione delle credenziali.  Per ulteriori informaz
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_authorize_response import CredentialsAuthorizeResponse
 from rentri_ca.rest import ApiException
@@ -153,7 +153,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **handle** | **str**| Handle del SAD per verificare lo stato di autorizzazione della richiesta. | 
@@ -172,7 +171,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Autorizzazione concessa. |  -  |
@@ -195,8 +193,9 @@ Imposta lo stato di una richiesta di autorizzazione delle credenziali.  Per ulte
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_authorize_confirmation_request import CredentialsAuthorizeConfirmationRequest
 from rentri_ca.rest import ApiException
@@ -235,7 +234,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_authorize_confirmation_request** | [**CredentialsAuthorizeConfirmationRequest**](CredentialsAuthorizeConfirmationRequest.md)| Dati per l&#39;impostazione dell&#39;autorizzazione. | [optional] 
@@ -254,7 +252,6 @@ void (empty response body)
  - **Accept**: Not defined
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Stato dell&#39;autorizzazione aggiornato. |  -  |
@@ -276,8 +273,9 @@ Imposta lo stato di una richiesta di autorizzazione delle credenziali.  Per ulte
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_authorize_confirmation_request import CredentialsAuthorizeConfirmationRequest
 from rentri_ca.rest import ApiException
@@ -316,7 +314,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_authorize_confirmation_request** | [**CredentialsAuthorizeConfirmationRequest**](CredentialsAuthorizeConfirmationRequest.md)| Dati per l&#39;impostazione dell&#39;autorizzazione. | [optional] 
@@ -335,7 +332,6 @@ void (empty response body)
  - **Accept**: Not defined
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Stato dell&#39;autorizzazione aggiornato. |  -  |
@@ -357,8 +353,9 @@ Autorizza l'accesso alle credenziali per la firma.  Per ulteriori informazioni c
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_authorize_request import CredentialsAuthorizeRequest
 from rentri_ca.models.credentials_authorize_response import CredentialsAuthorizeResponse
@@ -400,7 +397,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_authorize_request** | [**CredentialsAuthorizeRequest**](CredentialsAuthorizeRequest.md)| Dati delle credenziali da autorizzare. | [optional] 
@@ -419,7 +415,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Autorizzazione concessa. |  -  |
@@ -442,8 +437,9 @@ Ottiene le informazioni sull'identità principale ed il certificato (o la catena
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_info_response import CredentialsInfoResponse
 from rentri_ca.rest import ApiException
@@ -489,7 +485,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **credentials_id** | **str**| Identificativo delle credenziali. | 
@@ -513,7 +508,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Informazioni sulle credenziali. |  -  |
@@ -535,8 +529,9 @@ Ottiene l'elenco delle credenziali associate ad un soggetto.  Per ulteriori info
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.credentials_list_response import CredentialsListResponse
 from rentri_ca.rest import ApiException
@@ -585,7 +580,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **identificativo_soggetto** | **str**| Codice Fiscale di un Operatore iscritto. | 
@@ -612,7 +606,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Elenco delle credenziali. |  -  |
@@ -634,8 +627,9 @@ Crea delle nuove credenziali associate al soggetto e al dispositivo specificati,
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.create_update_credentials_request import CreateUpdateCredentialsRequest
 from rentri_ca.models.create_update_credentials_response import CreateUpdateCredentialsResponse
@@ -677,7 +671,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **create_update_credentials_request** | [**CreateUpdateCredentialsRequest**](CreateUpdateCredentialsRequest.md)| Dati delle credenziali. | [optional] 
@@ -696,7 +689,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Identificativo delle credenziali create/aggiornate. |  -  |
@@ -718,8 +710,9 @@ Restituisce informazioni sul servizio e l'elenco dei metodi API implementati.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.info_data import InfoData
 from rentri_ca.rest import ApiException
@@ -760,7 +753,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **lang** | **str**| Lingua prescelta per la risposta, specificata secondo RFC 5646. | [optional] [default to &#39;it-IT&#39;]
@@ -779,7 +771,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
@@ -797,8 +788,9 @@ Calcola la firma di uno o più hash specificati.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.signature_request import SignatureRequest
 from rentri_ca.models.signature_response import SignatureResponse
@@ -840,7 +832,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **signature_request** | [**SignatureRequest**](SignatureRequest.md)|  | [optional] 
@@ -859,7 +850,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Firma applicata correttamente. |  -  |
@@ -881,8 +871,9 @@ Calcola la firma di uno o più hash specificati.
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.models.signature_request import SignatureRequest
 from rentri_ca.models.signature_response import SignatureResponse
@@ -924,7 +915,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **signature_request** | [**SignatureRequest**](SignatureRequest.md)|  | [optional] 
@@ -943,7 +933,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Firma applicata correttamente. |  -  |

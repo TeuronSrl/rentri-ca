@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.stato import Stato
+from rentri_ca.models.stato import Stato  # noqa: E501
 
 class TestStato(unittest.TestCase):
     """Stato unit test stubs"""

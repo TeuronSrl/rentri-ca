@@ -15,7 +15,7 @@
 
 import unittest
 
-from rentri_ca.api.csc_firma_remota_rentri_api import CSCFirmaRemotaRENTRIApi
+from rentri_ca.api.csc_firma_remota_rentri_api import CSCFirmaRemotaRENTRIApi  # noqa: E501
 
 
 class TestCSCFirmaRemotaRENTRIApi(unittest.TestCase):
@@ -25,82 +25,82 @@ class TestCSCFirmaRemotaRENTRIApi(unittest.TestCase):
         self.api = CSCFirmaRemotaRENTRIApi()
 
     def tearDown(self) -> None:
-        pass
+        self.api.api_client.close()
 
     def test_credentials_authorize_check_handle_get(self) -> None:
         """Test case for credentials_authorize_check_handle_get
 
-        Verifica autorizzazione credenziali
+        Verifica autorizzazione credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_authorize_check_handle_get_0(self) -> None:
         """Test case for credentials_authorize_check_handle_get_0
 
-        ⚠️[DEPRECATO] - utilizzare /credentials/authorize-check/{handle} - Verifica autorizzazione credenziali
+        ⚠️[DEPRECATO] - utilizzare /credentials/authorize-check/{handle} - Verifica autorizzazione credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_authorize_confirmation_put(self) -> None:
         """Test case for credentials_authorize_confirmation_put
 
-        Imposta autorizzazione credenziali
+        Imposta autorizzazione credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_authorize_confirmation_put_0(self) -> None:
         """Test case for credentials_authorize_confirmation_put_0
 
-        ⚠️[DEPRECATO] - utilizzare /credentials/authorize-confirmation - Imposta autorizzazione credenziali
+        ⚠️[DEPRECATO] - utilizzare /credentials/authorize-confirmation - Imposta autorizzazione credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_authorize_post(self) -> None:
         """Test case for credentials_authorize_post
 
-        Autorizza credenziali
+        Autorizza credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_info_get(self) -> None:
         """Test case for credentials_info_get
 
-        Informazioni credenziali
+        Informazioni credenziali  # noqa: E501
         """
         pass
 
     def test_credentials_list_get(self) -> None:
         """Test case for credentials_list_get
 
-        Elenco credenziali soggetto
+        Elenco credenziali soggetto  # noqa: E501
         """
         pass
 
     def test_credentials_post(self) -> None:
         """Test case for credentials_post
 
-        Crea/aggiorna credenziali
+        Crea/aggiorna credenziali  # noqa: E501
         """
         pass
 
     def test_info_get(self) -> None:
         """Test case for info_get
 
-        Info servizio
+        Info servizio  # noqa: E501
         """
         pass
 
     def test_signatures_sign_hash_post(self) -> None:
         """Test case for signatures_sign_hash_post
 
-        Firma hash
+        Firma hash  # noqa: E501
         """
         pass
 
     def test_signatures_sign_hash_post_0(self) -> None:
         """Test case for signatures_sign_hash_post_0
 
-        ⚠️[DEPRECATO] - utilizzare /signatures/sign-hash - Firma hash
+        ⚠️[DEPRECATO] - utilizzare /signatures/sign-hash - Firma hash  # noqa: E501
         """
         pass
 

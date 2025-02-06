@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.sync_device_info_request import SyncDeviceInfoRequest
+from rentri_ca.models.sync_device_info_request import SyncDeviceInfoRequest  # noqa: E501
 
 class TestSyncDeviceInfoRequest(unittest.TestCase):
     """SyncDeviceInfoRequest unit test stubs"""
@@ -28,12 +29,12 @@ class TestSyncDeviceInfoRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> SyncDeviceInfoRequest:
         """Test SyncDeviceInfoRequest
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `SyncDeviceInfoRequest`
         """
-        model = SyncDeviceInfoRequest()
+        model = SyncDeviceInfoRequest()  # noqa: E501
         if include_optional:
             return SyncDeviceInfoRequest(
                 identifier = '0',

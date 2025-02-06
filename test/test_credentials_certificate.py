@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.credentials_certificate import CredentialsCertificate
+from rentri_ca.models.credentials_certificate import CredentialsCertificate  # noqa: E501
 
 class TestCredentialsCertificate(unittest.TestCase):
     """CredentialsCertificate unit test stubs"""

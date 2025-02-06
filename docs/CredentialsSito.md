@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **num_iscr_sito** | **str** |  | [optional] 
@@ -22,7 +21,7 @@ json = "{}"
 # create an instance of CredentialsSito from a JSON string
 credentials_sito_instance = CredentialsSito.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsSito.to_json())
+print CredentialsSito.to_json()
 
 # convert the object into a dict
 credentials_sito_dict = credentials_sito_instance.to_dict()

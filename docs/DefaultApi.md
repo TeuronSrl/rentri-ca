@@ -17,8 +17,9 @@ Verifica dello stato dell'API.<hr/><i>Servizio richiamabile in modalità <b>STUB
 ### Example
 
 * Bearer (JWT) Authentication (Bearer):
-
 ```python
+import time
+import os
 import rentri_ca
 from rentri_ca.rest import ApiException
 from pprint import pprint
@@ -54,7 +55,6 @@ with rentri_ca.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-
 This endpoint does not need any parameter.
 
 ### Return type
@@ -71,7 +71,6 @@ void (empty response body)
  - **Accept**: application/problem+json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |

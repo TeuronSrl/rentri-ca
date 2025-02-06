@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **token** | **str** | Token della richiesta di reset. | 
@@ -19,7 +18,7 @@ json = "{}"
 # create an instance of ResetPinRequest from a JSON string
 reset_pin_request_instance = ResetPinRequest.from_json(json)
 # print the JSON string representation of the object
-print(ResetPinRequest.to_json())
+print ResetPinRequest.to_json()
 
 # convert the object into a dict
 reset_pin_request_dict = reset_pin_request_instance.to_dict()

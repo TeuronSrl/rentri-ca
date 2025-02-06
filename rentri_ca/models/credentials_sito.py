@@ -18,104 +18,88 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
-from typing_extensions import Self
+
+from typing import Optional
+from pydantic import BaseModel, StrictStr
 
 class CredentialsSito(BaseModel):
     """
     CredentialsSito
-    """ # noqa: E501
+    """
     num_iscr_sito: Optional[StrictStr] = None
     nome: Optional[StrictStr] = None
     indirizzo: Optional[StrictStr] = None
     civico: Optional[StrictStr] = None
     comune_id: Optional[StrictStr] = None
     provincia_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["num_iscr_sito", "nome", "indirizzo", "civico", "comune_id", "provincia_id"]
+    __properties = ["num_iscr_sito", "nome", "indirizzo", "civico", "comune_id", "provincia_id"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CredentialsSito:
         """Create an instance of CredentialsSito from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if num_iscr_sito (nullable) is None
-        # and model_fields_set contains the field
-        if self.num_iscr_sito is None and "num_iscr_sito" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.num_iscr_sito is None and "num_iscr_sito" in self.__fields_set__:
             _dict['num_iscr_sito'] = None
 
         # set to None if nome (nullable) is None
-        # and model_fields_set contains the field
-        if self.nome is None and "nome" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.nome is None and "nome" in self.__fields_set__:
             _dict['nome'] = None
 
         # set to None if indirizzo (nullable) is None
-        # and model_fields_set contains the field
-        if self.indirizzo is None and "indirizzo" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.indirizzo is None and "indirizzo" in self.__fields_set__:
             _dict['indirizzo'] = None
 
         # set to None if civico (nullable) is None
-        # and model_fields_set contains the field
-        if self.civico is None and "civico" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.civico is None and "civico" in self.__fields_set__:
             _dict['civico'] = None
 
         # set to None if comune_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.comune_id is None and "comune_id" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.comune_id is None and "comune_id" in self.__fields_set__:
             _dict['comune_id'] = None
 
         # set to None if provincia_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.provincia_id is None and "provincia_id" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.provincia_id is None and "provincia_id" in self.__fields_set__:
             _dict['provincia_id'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> CredentialsSito:
         """Create an instance of CredentialsSito from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return CredentialsSito.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = CredentialsSito.parse_obj({
             "num_iscr_sito": obj.get("num_iscr_sito"),
             "nome": obj.get("nome"),
             "indirizzo": obj.get("indirizzo"),

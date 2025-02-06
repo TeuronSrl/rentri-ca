@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.credentials_post_request import CredentialsPostRequest
+from rentri_ca.models.credentials_post_request import CredentialsPostRequest  # noqa: E501
 
 class TestCredentialsPostRequest(unittest.TestCase):
     """CredentialsPostRequest unit test stubs"""
@@ -28,12 +29,12 @@ class TestCredentialsPostRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CredentialsPostRequest:
         """Test CredentialsPostRequest
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CredentialsPostRequest`
         """
-        model = CredentialsPostRequest()
+        model = CredentialsPostRequest()  # noqa: E501
         if include_optional:
             return CredentialsPostRequest(
                 type = 'Notification',

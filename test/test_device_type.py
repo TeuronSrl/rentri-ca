@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.device_type import DeviceType
+from rentri_ca.models.device_type import DeviceType  # noqa: E501
 
 class TestDeviceType(unittest.TestCase):
     """DeviceType unit test stubs"""

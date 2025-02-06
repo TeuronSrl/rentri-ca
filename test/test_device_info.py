@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.device_info import DeviceInfo
+from rentri_ca.models.device_info import DeviceInfo  # noqa: E501
 
 class TestDeviceInfo(unittest.TestCase):
     """DeviceInfo unit test stubs"""
@@ -28,12 +29,12 @@ class TestDeviceInfo(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DeviceInfo:
         """Test DeviceInfo
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DeviceInfo`
         """
-        model = DeviceInfo()
+        model = DeviceInfo()  # noqa: E501
         if include_optional:
             return DeviceInfo(
                 identifier = '0',

@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **sad** | **str** | SAD (Signature Activation Data), solo nel caso in cui la richiesta di autorizzazione abbia avuto successo. | [optional] 
@@ -19,7 +18,7 @@ json = "{}"
 # create an instance of CredentialsAuthorizeResponse from a JSON string
 credentials_authorize_response_instance = CredentialsAuthorizeResponse.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsAuthorizeResponse.to_json())
+print CredentialsAuthorizeResponse.to_json()
 
 # convert the object into a dict
 credentials_authorize_response_dict = credentials_authorize_response_instance.to_dict()

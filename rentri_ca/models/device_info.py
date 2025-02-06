@@ -18,80 +18,63 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
+
+from typing import Dict
+from pydantic import BaseModel, Field, StrictStr, constr
 from rentri_ca.models.device_type import DeviceType
-from typing import Optional, Set
-from typing_extensions import Self
 
 class DeviceInfo(BaseModel):
     """
-    Informazioni sul dispositivo.
-    """ # noqa: E501
-    identifier: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(description="Identificativo del dispositivo.")
-    model: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(description="Modello del dispositivo.")
-    manufacturer: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(description="Produttore del dispositivo.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=150)] = Field(description="Nome del dispositivo.")
-    os_version: Annotated[str, Field(min_length=1, strict=True, max_length=14)] = Field(description="Versione del Sistema Operativo del dispositivo.")
-    form_factor: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="Stile del dispositivo.")
-    type: DeviceType = Field(description="Tipo di dispositivo.<p>Valori ammessi:<ul style=\"margin:0\"><li><i>Physical</i> - Dispositivo fisico</li><li><i>Virtual</i> - Dispositivo virtuale</li></ul></p>")
-    platform: Annotated[str, Field(min_length=1, strict=True, max_length=20)] = Field(description="Piattaforma del dispositivo.")
-    notification_callback_uri: Annotated[str, Field(min_length=1, strict=True, max_length=2000)] = Field(description="URI di callback alla quale verranno inviati in POST i dati delle notifiche RENTRI.")
-    notification_callback_parameters: Dict[str, StrictStr] = Field(description="Dizionario di parametri custom che verranno inviati, tra i dati delle notifiche, all'URI di callback.")
-    __properties: ClassVar[List[str]] = ["identifier", "model", "manufacturer", "name", "os_version", "form_factor", "type", "platform", "notification_callback_uri", "notification_callback_parameters"]
+    Informazioni sul dispositivo.  # noqa: E501
+    """
+    identifier: constr(strict=True, max_length=50, min_length=1) = Field(default=..., description="Identificativo del dispositivo.")
+    model: constr(strict=True, max_length=50, min_length=1) = Field(default=..., description="Modello del dispositivo.")
+    manufacturer: constr(strict=True, max_length=50, min_length=1) = Field(default=..., description="Produttore del dispositivo.")
+    name: constr(strict=True, max_length=150, min_length=1) = Field(default=..., description="Nome del dispositivo.")
+    os_version: constr(strict=True, max_length=14, min_length=1) = Field(default=..., description="Versione del Sistema Operativo del dispositivo.")
+    form_factor: constr(strict=True, max_length=20, min_length=1) = Field(default=..., description="Stile del dispositivo.")
+    type: DeviceType = Field(default=..., description="Tipo di dispositivo.<p>Valori ammessi:<ul style=\"margin:0\"><li><i>Physical</i> - Dispositivo fisico</li><li><i>Virtual</i> - Dispositivo virtuale</li></ul></p>")
+    platform: constr(strict=True, max_length=20, min_length=1) = Field(default=..., description="Piattaforma del dispositivo.")
+    notification_callback_uri: constr(strict=True, max_length=2000, min_length=1) = Field(default=..., description="URI di callback alla quale verranno inviati in POST i dati delle notifiche RENTRI.")
+    notification_callback_parameters: Dict[str, StrictStr] = Field(default=..., description="Dizionario di parametri custom che verranno inviati, tra i dati delle notifiche, all'URI di callback.")
+    __properties = ["identifier", "model", "manufacturer", "name", "os_version", "form_factor", "type", "platform", "notification_callback_uri", "notification_callback_parameters"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> DeviceInfo:
         """Create an instance of DeviceInfo from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> DeviceInfo:
         """Create an instance of DeviceInfo from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return DeviceInfo.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = DeviceInfo.parse_obj({
             "identifier": obj.get("identifier"),
             "model": obj.get("model"),
             "manufacturer": obj.get("manufacturer"),

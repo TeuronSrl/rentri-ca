@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **credentials_id** | **str** | Identificativo delle credenziali. | 
@@ -21,7 +20,7 @@ json = "{}"
 # create an instance of CredentialsAuthorizeConfirmationRequest from a JSON string
 credentials_authorize_confirmation_request_instance = CredentialsAuthorizeConfirmationRequest.from_json(json)
 # print the JSON string representation of the object
-print(CredentialsAuthorizeConfirmationRequest.to_json())
+print CredentialsAuthorizeConfirmationRequest.to_json()
 
 # convert the object into a dict
 credentials_authorize_confirmation_request_dict = credentials_authorize_confirmation_request_instance.to_dict()

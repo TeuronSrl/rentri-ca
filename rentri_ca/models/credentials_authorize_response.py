@@ -18,86 +18,70 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
-from typing_extensions import Self
+
+from typing import Optional
+from pydantic import BaseModel, Field, StrictInt, StrictStr
 
 class CredentialsAuthorizeResponse(BaseModel):
     """
     CredentialsAuthorizeResponse
-    """ # noqa: E501
+    """
     sad: Optional[StrictStr] = Field(default=None, description="SAD (Signature Activation Data), solo nel caso in cui la richiesta di autorizzazione abbia avuto successo.")
     expires_in: Optional[StrictInt] = Field(default=None, description="La durata del SAD espressa in secondi (default 3600), solo nel caso in cui l'autorizzazione sia stata concessa.")
     handle: Optional[StrictStr] = Field(default=None, description="Handle del SAD per verificare lo stato di autorizzazione della richiesta.")
-    __properties: ClassVar[List[str]] = ["sad", "expires_in", "handle"]
+    __properties = ["sad", "expires_in", "handle"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CredentialsAuthorizeResponse:
         """Create an instance of CredentialsAuthorizeResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if sad (nullable) is None
-        # and model_fields_set contains the field
-        if self.sad is None and "sad" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.sad is None and "sad" in self.__fields_set__:
             _dict['sad'] = None
 
         # set to None if expires_in (nullable) is None
-        # and model_fields_set contains the field
-        if self.expires_in is None and "expires_in" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.expires_in is None and "expires_in" in self.__fields_set__:
             _dict['expires_in'] = None
 
         # set to None if handle (nullable) is None
-        # and model_fields_set contains the field
-        if self.handle is None and "handle" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.handle is None and "handle" in self.__fields_set__:
             _dict['handle'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> CredentialsAuthorizeResponse:
         """Create an instance of CredentialsAuthorizeResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return CredentialsAuthorizeResponse.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = CredentialsAuthorizeResponse.parse_obj({
             "sad": obj.get("sad"),
             "expires_in": obj.get("expires_in"),
             "handle": obj.get("handle")

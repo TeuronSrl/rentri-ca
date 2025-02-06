@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identifier** | **str** | Identificativo del dispositivo. | 
@@ -22,7 +21,7 @@ json = "{}"
 # create an instance of SyncDeviceInfoRequest from a JSON string
 sync_device_info_request_instance = SyncDeviceInfoRequest.from_json(json)
 # print the JSON string representation of the object
-print(SyncDeviceInfoRequest.to_json())
+print SyncDeviceInfoRequest.to_json()
 
 # convert the object into a dict
 sync_device_info_request_dict = sync_device_info_request_instance.to_dict()

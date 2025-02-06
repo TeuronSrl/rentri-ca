@@ -18,88 +18,72 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+
+from typing import List, Optional
+from pydantic import BaseModel, Field, StrictInt, StrictStr, conlist
 from rentri_ca.models.key_status import KeyStatus
-from typing import Optional, Set
-from typing_extensions import Self
 
 class KeyData(BaseModel):
     """
     KeyData
-    """ # noqa: E501
+    """
     status: Optional[KeyStatus] = Field(default=None, description="Stato della chiave di firma.<p>Valori ammessi:<ul style=\"margin:0\"><li><i>Enabled</i> - Chiave abilitata ed utilizzabile per la firma.</li><li><i>Disabled</i> - Chiave disabilitata e non utilizzabile per la firma.</li></ul></p>")
-    algo: Optional[List[StrictStr]] = Field(default=None, description="Elenco degli OID degli algoritmi chiave supportati.")
+    algo: Optional[conlist(StrictStr)] = Field(default=None, description="Elenco degli OID degli algoritmi chiave supportati.")
     len: Optional[StrictInt] = Field(default=None, description="Lunghezza della chiave crittografica in bit.")
     curve: Optional[StrictStr] = Field(default=None, description="OID della curva ECDSA.")
-    __properties: ClassVar[List[str]] = ["status", "algo", "len", "curve"]
+    __properties = ["status", "algo", "len", "curve"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> KeyData:
         """Create an instance of KeyData from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if algo (nullable) is None
-        # and model_fields_set contains the field
-        if self.algo is None and "algo" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.algo is None and "algo" in self.__fields_set__:
             _dict['algo'] = None
 
         # set to None if len (nullable) is None
-        # and model_fields_set contains the field
-        if self.len is None and "len" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.len is None and "len" in self.__fields_set__:
             _dict['len'] = None
 
         # set to None if curve (nullable) is None
-        # and model_fields_set contains the field
-        if self.curve is None and "curve" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.curve is None and "curve" in self.__fields_set__:
             _dict['curve'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> KeyData:
         """Create an instance of KeyData from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return KeyData.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = KeyData.parse_obj({
             "status": obj.get("status"),
             "algo": obj.get("algo"),
             "len": obj.get("len"),

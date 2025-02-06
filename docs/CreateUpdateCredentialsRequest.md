@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identificativo_soggetto** | **str** | Codice Fiscale di un Operatore iscritto. | 
@@ -23,7 +22,7 @@ json = "{}"
 # create an instance of CreateUpdateCredentialsRequest from a JSON string
 create_update_credentials_request_instance = CreateUpdateCredentialsRequest.from_json(json)
 # print the JSON string representation of the object
-print(CreateUpdateCredentialsRequest.to_json())
+print CreateUpdateCredentialsRequest.to_json()
 
 # convert the object into a dict
 create_update_credentials_request_dict = create_update_credentials_request_instance.to_dict()

@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.auth_mode import AuthMode
+from rentri_ca.models.auth_mode import AuthMode  # noqa: E501
 
 class TestAuthMode(unittest.TestCase):
     """AuthMode unit test stubs"""

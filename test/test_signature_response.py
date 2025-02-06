@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.signature_response import SignatureResponse
+from rentri_ca.models.signature_response import SignatureResponse  # noqa: E501
 
 class TestSignatureResponse(unittest.TestCase):
     """SignatureResponse unit test stubs"""
@@ -28,12 +29,12 @@ class TestSignatureResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> SignatureResponse:
         """Test SignatureResponse
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `SignatureResponse`
         """
-        model = SignatureResponse()
+        model = SignatureResponse()  # noqa: E501
         if include_optional:
             return SignatureResponse(
                 signatures = [

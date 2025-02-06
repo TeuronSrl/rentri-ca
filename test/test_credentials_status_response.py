@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.credentials_status_response import CredentialsStatusResponse
+from rentri_ca.models.credentials_status_response import CredentialsStatusResponse  # noqa: E501
 
 class TestCredentialsStatusResponse(unittest.TestCase):
     """CredentialsStatusResponse unit test stubs"""
@@ -28,12 +29,12 @@ class TestCredentialsStatusResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CredentialsStatusResponse:
         """Test CredentialsStatusResponse
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CredentialsStatusResponse`
         """
-        model = CredentialsStatusResponse()
+        model = CredentialsStatusResponse()  # noqa: E501
         if include_optional:
             return CredentialsStatusResponse(
                 identifier = '',

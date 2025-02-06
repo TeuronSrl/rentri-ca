@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **current_pin** | **str** | PIN corrente. | 
@@ -18,7 +17,7 @@ json = "{}"
 # create an instance of ChangePinRequest from a JSON string
 change_pin_request_instance = ChangePinRequest.from_json(json)
 # print the JSON string representation of the object
-print(ChangePinRequest.to_json())
+print ChangePinRequest.to_json()
 
 # convert the object into a dict
 change_pin_request_dict = change_pin_request_instance.to_dict()

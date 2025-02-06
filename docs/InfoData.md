@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **specs** | **str** | Versione della specifica CSC implementata. | [optional] 
@@ -28,7 +27,7 @@ json = "{}"
 # create an instance of InfoData from a JSON string
 info_data_instance = InfoData.from_json(json)
 # print the JSON string representation of the object
-print(InfoData.to_json())
+print InfoData.to_json()
 
 # convert the object into a dict
 info_data_dict = info_data_instance.to_dict()

@@ -18,98 +18,82 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
-from typing_extensions import Self
+
+from typing import Optional
+from pydantic import BaseModel, Field, StrictStr
 
 class BoardingAccessResponse(BaseModel):
     """
     BoardingAccessResponse
-    """ # noqa: E501
+    """
     identificativo_soggetto: Optional[StrictStr] = Field(default=None, description="Identificativo del soggetto.")
     denominazione_soggetto: Optional[StrictStr] = Field(default=None, description="Denominazione del soggetto.")
     num_iscr_operatore: Optional[StrictStr] = Field(default=None, description="Numero di iscrizione dell'operatore.")
     num_iscr_sito: Optional[StrictStr] = Field(default=None, description="Numero di iscrizione del sito.")
     nome_sito: Optional[StrictStr] = Field(default=None, description="Nome del sito.")
-    __properties: ClassVar[List[str]] = ["identificativo_soggetto", "denominazione_soggetto", "num_iscr_operatore", "num_iscr_sito", "nome_sito"]
+    __properties = ["identificativo_soggetto", "denominazione_soggetto", "num_iscr_operatore", "num_iscr_sito", "nome_sito"]
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
-
+    class Config:
+        """Pydantic configuration"""
+        allow_population_by_field_name = True
+        validate_assignment = True
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> BoardingAccessResponse:
         """Create an instance of BoardingAccessResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
+    def to_dict(self):
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
+                          exclude={
+                          },
+                          exclude_none=True)
         # set to None if identificativo_soggetto (nullable) is None
-        # and model_fields_set contains the field
-        if self.identificativo_soggetto is None and "identificativo_soggetto" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.identificativo_soggetto is None and "identificativo_soggetto" in self.__fields_set__:
             _dict['identificativo_soggetto'] = None
 
         # set to None if denominazione_soggetto (nullable) is None
-        # and model_fields_set contains the field
-        if self.denominazione_soggetto is None and "denominazione_soggetto" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.denominazione_soggetto is None and "denominazione_soggetto" in self.__fields_set__:
             _dict['denominazione_soggetto'] = None
 
         # set to None if num_iscr_operatore (nullable) is None
-        # and model_fields_set contains the field
-        if self.num_iscr_operatore is None and "num_iscr_operatore" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.num_iscr_operatore is None and "num_iscr_operatore" in self.__fields_set__:
             _dict['num_iscr_operatore'] = None
 
         # set to None if num_iscr_sito (nullable) is None
-        # and model_fields_set contains the field
-        if self.num_iscr_sito is None and "num_iscr_sito" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.num_iscr_sito is None and "num_iscr_sito" in self.__fields_set__:
             _dict['num_iscr_sito'] = None
 
         # set to None if nome_sito (nullable) is None
-        # and model_fields_set contains the field
-        if self.nome_sito is None and "nome_sito" in self.model_fields_set:
+        # and __fields_set__ contains the field
+        if self.nome_sito is None and "nome_sito" in self.__fields_set__:
             _dict['nome_sito'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: dict) -> BoardingAccessResponse:
         """Create an instance of BoardingAccessResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+            return BoardingAccessResponse.parse_obj(obj)
 
-        _obj = cls.model_validate({
+        _obj = BoardingAccessResponse.parse_obj({
             "identificativo_soggetto": obj.get("identificativo_soggetto"),
             "denominazione_soggetto": obj.get("denominazione_soggetto"),
             "num_iscr_operatore": obj.get("num_iscr_operatore"),

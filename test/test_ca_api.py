@@ -15,7 +15,7 @@
 
 import unittest
 
-from rentri_ca.api.ca_api import CAApi
+from rentri_ca.api.ca_api import CAApi  # noqa: E501
 
 
 class TestCAApi(unittest.TestCase):
@@ -25,19 +25,19 @@ class TestCAApi(unittest.TestCase):
         self.api = CAApi()
 
     def tearDown(self) -> None:
-        pass
+        self.api.api_client.close()
 
     def test_ca_num_seriale_ca_cert_crl_get(self) -> None:
         """Test case for ca_num_seriale_ca_cert_crl_get
 
-        CRL
+        CRL  # noqa: E501
         """
         pass
 
     def test_ca_num_seriale_ca_cert_get(self) -> None:
         """Test case for ca_num_seriale_ca_cert_get
 
-        Certificato CA
+        Certificato CA  # noqa: E501
         """
         pass
 

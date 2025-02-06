@@ -3,7 +3,6 @@
 Dati di base del dispositivo e informazioni sulla registrazione al servizio di smistamento delle notifiche RENTRI.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **identifier** | **str** | Identificativo del dispositivo. | [optional] 
@@ -35,7 +34,7 @@ json = "{}"
 # create an instance of DeviceModel from a JSON string
 device_model_instance = DeviceModel.from_json(json)
 # print the JSON string representation of the object
-print(DeviceModel.to_json())
+print DeviceModel.to_json()
 
 # convert the object into a dict
 device_model_dict = device_model_instance.to_dict()

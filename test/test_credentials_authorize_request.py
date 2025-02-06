@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.credentials_authorize_request import CredentialsAuthorizeRequest
+from rentri_ca.models.credentials_authorize_request import CredentialsAuthorizeRequest  # noqa: E501
 
 class TestCredentialsAuthorizeRequest(unittest.TestCase):
     """CredentialsAuthorizeRequest unit test stubs"""
@@ -28,12 +29,12 @@ class TestCredentialsAuthorizeRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CredentialsAuthorizeRequest:
         """Test CredentialsAuthorizeRequest
-            include_optional is a boolean, when False only required
+            include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CredentialsAuthorizeRequest`
         """
-        model = CredentialsAuthorizeRequest()
+        model = CredentialsAuthorizeRequest()  # noqa: E501
         if include_optional:
             return CredentialsAuthorizeRequest(
                 credentials_id = '012345678',
@@ -43,7 +44,11 @@ class TestCredentialsAuthorizeRequest(unittest.TestCase):
                     ],
                 hash_algo = '2.16.840.1.101.3.4.2.10',
                 description = '',
-                auth_data = ERROR_TO_EXAMPLE_VALUE,
+                auth_data = [
+                    rentri_ca.models.auth_object_data.AuthObjectData(
+                        id = 'moBILE0', 
+                        value = '', )
+                    ],
                 client_data = ''
             )
         else:
@@ -54,7 +59,11 @@ class TestCredentialsAuthorizeRequest(unittest.TestCase):
                     ''
                     ],
                 hash_algo = '2.16.840.1.101.3.4.2.10',
-                auth_data = ERROR_TO_EXAMPLE_VALUE,
+                auth_data = [
+                    rentri_ca.models.auth_object_data.AuthObjectData(
+                        id = 'moBILE0', 
+                        value = '', )
+                    ],
         )
         """
 

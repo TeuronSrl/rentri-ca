@@ -12,20 +12,27 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Any, Dict, List, Optional, Tuple, Union
-from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictStr
-from typing import List, Optional
+import re  # noqa: F401
+import io
+import warnings
+
+from pydantic import validate_arguments, ValidationError
+
 from typing_extensions import Annotated
+from pydantic import Field, StrictBool, StrictStr, conint, constr
+
+from typing import List, Optional
+
 from rentri_ca.models.device_model import DeviceModel
 from rentri_ca.models.sync_device_info_request import SyncDeviceInfoRequest
 
-from rentri_ca.api_client import ApiClient, RequestSerialized
+from rentri_ca.api_client import ApiClient
 from rentri_ca.api_response import ApiResponse
-from rentri_ca.rest import RESTResponseType
+from rentri_ca.exceptions import (  # noqa: F401
+    ApiTypeError,
+    ApiValueError
+)
 
 
 class GestioneDispositiviApi:
@@ -40,322 +47,168 @@ class GestioneDispositiviApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
+    @validate_arguments
+    def devices_device_id_identificativo_soggetto_get(self, device_id : Annotated[constr(strict=True, max_length=50), Field(..., description="Criteri di ricerca dei dispositivi.")], identificativo_soggetto : Annotated[StrictStr, Field(..., description="Identificativo del soggetto.")], **kwargs) -> DeviceModel:  # noqa: E501
+        """Dettaglio dispositivo  # noqa: E501
 
-    @validate_call
-    def devices_device_id_identificativo_soggetto_get(
-        self,
-        device_id: Annotated[str, Field(strict=True, max_length=50, description="Criteri di ricerca dei dispositivi.")],
-        identificativo_soggetto: Annotated[StrictStr, Field(description="Identificativo del soggetto.")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> DeviceModel:
-        """Dettaglio dispositivo
+        Ottiene informazioni di dettaglio di un dispositivo.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
-        Ottiene informazioni di dettaglio di un dispositivo.
+        >>> thread = api.devices_device_id_identificativo_soggetto_get(device_id, identificativo_soggetto, async_req=True)
+        >>> result = thread.get()
 
         :param device_id: Criteri di ricerca dei dispositivi. (required)
         :type device_id: str
         :param identificativo_soggetto: Identificativo del soggetto. (required)
         :type identificativo_soggetto: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
         :return: Returns the result object.
-        """ # noqa: E501
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: DeviceModel
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the devices_device_id_identificativo_soggetto_get_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.devices_device_id_identificativo_soggetto_get_with_http_info(device_id, identificativo_soggetto, **kwargs)  # noqa: E501
 
-        _param = self._devices_device_id_identificativo_soggetto_get_serialize(
-            device_id=device_id,
-            identificativo_soggetto=identificativo_soggetto,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
+    @validate_arguments
+    def devices_device_id_identificativo_soggetto_get_with_http_info(self, device_id : Annotated[constr(strict=True, max_length=50), Field(..., description="Criteri di ricerca dei dispositivi.")], identificativo_soggetto : Annotated[StrictStr, Field(..., description="Identificativo del soggetto.")], **kwargs) -> ApiResponse:  # noqa: E501
+        """Dettaglio dispositivo  # noqa: E501
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeviceModel",
-            '403': None,
-            '404': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+        Ottiene informazioni di dettaglio di un dispositivo.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
-
-    @validate_call
-    def devices_device_id_identificativo_soggetto_get_with_http_info(
-        self,
-        device_id: Annotated[str, Field(strict=True, max_length=50, description="Criteri di ricerca dei dispositivi.")],
-        identificativo_soggetto: Annotated[StrictStr, Field(description="Identificativo del soggetto.")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[DeviceModel]:
-        """Dettaglio dispositivo
-
-        Ottiene informazioni di dettaglio di un dispositivo.
+        >>> thread = api.devices_device_id_identificativo_soggetto_get_with_http_info(device_id, identificativo_soggetto, async_req=True)
+        >>> result = thread.get()
 
         :param device_id: Criteri di ricerca dei dispositivi. (required)
         :type device_id: str
         :param identificativo_soggetto: Identificativo del soggetto. (required)
         :type identificativo_soggetto: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
         :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
         :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
-        """ # noqa: E501
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(DeviceModel, status_code(int), headers(HTTPHeaderDict))
+        """
 
-        _param = self._devices_device_id_identificativo_soggetto_get_serialize(
-            device_id=device_id,
-            identificativo_soggetto=identificativo_soggetto,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
+        _params = locals()
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeviceModel",
-            '403': None,
-            '404': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def devices_device_id_identificativo_soggetto_get_without_preload_content(
-        self,
-        device_id: Annotated[str, Field(strict=True, max_length=50, description="Criteri di ricerca dei dispositivi.")],
-        identificativo_soggetto: Annotated[StrictStr, Field(description="Identificativo del soggetto.")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
+        _all_params = [
+            'device_id',
+            'identificativo_soggetto'
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Dettaglio dispositivo
-
-        Ottiene informazioni di dettaglio di un dispositivo.
-
-        :param device_id: Criteri di ricerca dei dispositivi. (required)
-        :type device_id: str
-        :param identificativo_soggetto: Identificativo del soggetto. (required)
-        :type identificativo_soggetto: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._devices_device_id_identificativo_soggetto_get_serialize(
-            device_id=device_id,
-            identificativo_soggetto=identificativo_soggetto,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeviceModel",
-            '403': None,
-            '404': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method devices_device_id_identificativo_soggetto_get" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
 
-
-    def _devices_device_id_identificativo_soggetto_get_serialize(
-        self,
-        device_id,
-        identificativo_soggetto,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+        _collection_formats = {}
 
         # process the path parameters
-        if device_id is not None:
-            _path_params['device_id'] = device_id
-        if identificativo_soggetto is not None:
-            _path_params['identificativo_soggetto'] = identificativo_soggetto
+        _path_params = {}
+        if _params['device_id'] is not None:
+            _path_params['device_id'] = _params['device_id']
+
+        if _params['identificativo_soggetto'] is not None:
+            _path_params['identificativo_soggetto'] = _params['identificativo_soggetto']
+
+
         # process the query parameters
+        _query_params = []
         # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
         # process the form parameters
+        _form_params = []
+        _files = {}
         # process the body parameter
-
-
+        _body_params = None
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json', 
-                    'application/problem+json'
-                ]
-            )
-
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json', 'application/problem+json'])  # noqa: E501
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'Bearer'
-        ]
+        _auth_settings = ['Bearer']  # noqa: E501
 
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/devices/{device_id}/{identificativo_soggetto}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
+        _response_types_map = {
+            '200': "DeviceModel",
+            '403': None,
+            '404': None,
+            '429': None,
+            '500': "ProblemDetails",
+        }
+
+        return self.api_client.call_api(
+            '/devices/{device_id}/{identificativo_soggetto}', 'GET',
+            _path_params,
+            _query_params,
+            _header_params,
             body=_body_params,
             post_params=_form_params,
             files=_files,
+            response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
             collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+            _request_auth=_params.get('_request_auth'))
 
+    @validate_arguments
+    def devices_get(self, identificativo_soggetto : Annotated[StrictStr, Field(..., description="Identificativo del soggetto.")], user_name : Annotated[Optional[constr(strict=True, max_length=256)], Field(description="Identificativo dell'utente (da SPID, CIE, CNS).")] = None, device_id : Annotated[Optional[constr(strict=True, max_length=50)], Field(description="Identificativo del dispositivo.")] = None, credentials_id : Annotated[Optional[constr(strict=True, max_length=9, min_length=9)], Field(description="Identificativo delle credenziali.")] = None, attivi : Annotated[Optional[StrictBool], Field(description="Indica se includere solamente i dispositivi attivi.")] = None, paging_page : Annotated[Optional[conint(strict=True, le=2147483647, ge=1)], Field(description="Valore per l'header Paging-Page.")] = None, paging_page_size : Annotated[Optional[conint(strict=True, le=200, ge=1)], Field(description="Valore per l'header Paging-PageSize.")] = None, **kwargs) -> List[DeviceModel]:  # noqa: E501
+        """Elenco dispositivi  # noqa: E501
 
+        Ottiene l'elenco dei dispositivi, filtrati in base ai criteri specificati.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
-
-    @validate_call
-    def devices_get(
-        self,
-        identificativo_soggetto: Annotated[StrictStr, Field(description="Identificativo del soggetto.")],
-        user_name: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Identificativo dell'utente (da SPID, CIE, CNS).")] = None,
-        device_id: Annotated[Optional[Annotated[str, Field(strict=True, max_length=50)]], Field(description="Identificativo del dispositivo.")] = None,
-        credentials_id: Annotated[Optional[Annotated[str, Field(min_length=9, strict=True, max_length=9)]], Field(description="Identificativo delle credenziali.")] = None,
-        attivi: Annotated[Optional[StrictBool], Field(description="Indica se includere solamente i dispositivi attivi.")] = None,
-        paging_page: Annotated[Optional[Annotated[int, Field(le=2147483647, strict=True, ge=1)]], Field(description="Valore per l'header Paging-Page.")] = None,
-        paging_page_size: Annotated[Optional[Annotated[int, Field(le=200, strict=True, ge=1)]], Field(description="Valore per l'header Paging-PageSize.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[DeviceModel]:
-        """Elenco dispositivi
-
-        Ottiene l'elenco dei dispositivi, filtrati in base ai criteri specificati.
+        >>> thread = api.devices_get(identificativo_soggetto, user_name, device_id, credentials_id, attivi, paging_page, paging_page_size, async_req=True)
+        >>> result = thread.get()
 
         :param identificativo_soggetto: Identificativo del soggetto. (required)
         :type identificativo_soggetto: str
@@ -371,87 +224,33 @@ class GestioneDispositiviApi:
         :type paging_page: int
         :param paging_page_size: Valore per l'header Paging-PageSize.
         :type paging_page_size: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
         :return: Returns the result object.
-        """ # noqa: E501
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: List[DeviceModel]
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the devices_get_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.devices_get_with_http_info(identificativo_soggetto, user_name, device_id, credentials_id, attivi, paging_page, paging_page_size, **kwargs)  # noqa: E501
 
-        _param = self._devices_get_serialize(
-            identificativo_soggetto=identificativo_soggetto,
-            user_name=user_name,
-            device_id=device_id,
-            credentials_id=credentials_id,
-            attivi=attivi,
-            paging_page=paging_page,
-            paging_page_size=paging_page_size,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
+    @validate_arguments
+    def devices_get_with_http_info(self, identificativo_soggetto : Annotated[StrictStr, Field(..., description="Identificativo del soggetto.")], user_name : Annotated[Optional[constr(strict=True, max_length=256)], Field(description="Identificativo dell'utente (da SPID, CIE, CNS).")] = None, device_id : Annotated[Optional[constr(strict=True, max_length=50)], Field(description="Identificativo del dispositivo.")] = None, credentials_id : Annotated[Optional[constr(strict=True, max_length=9, min_length=9)], Field(description="Identificativo delle credenziali.")] = None, attivi : Annotated[Optional[StrictBool], Field(description="Indica se includere solamente i dispositivi attivi.")] = None, paging_page : Annotated[Optional[conint(strict=True, le=2147483647, ge=1)], Field(description="Valore per l'header Paging-Page.")] = None, paging_page_size : Annotated[Optional[conint(strict=True, le=200, ge=1)], Field(description="Valore per l'header Paging-PageSize.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+        """Elenco dispositivi  # noqa: E501
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DeviceModel]",
-            '403': None,
-            '404': None,
-            '422': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+        Ottiene l'elenco dei dispositivi, filtrati in base ai criteri specificati.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
-
-    @validate_call
-    def devices_get_with_http_info(
-        self,
-        identificativo_soggetto: Annotated[StrictStr, Field(description="Identificativo del soggetto.")],
-        user_name: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Identificativo dell'utente (da SPID, CIE, CNS).")] = None,
-        device_id: Annotated[Optional[Annotated[str, Field(strict=True, max_length=50)]], Field(description="Identificativo del dispositivo.")] = None,
-        credentials_id: Annotated[Optional[Annotated[str, Field(min_length=9, strict=True, max_length=9)]], Field(description="Identificativo delle credenziali.")] = None,
-        attivi: Annotated[Optional[StrictBool], Field(description="Indica se includere solamente i dispositivi attivi.")] = None,
-        paging_page: Annotated[Optional[Annotated[int, Field(le=2147483647, strict=True, ge=1)]], Field(description="Valore per l'header Paging-Page.")] = None,
-        paging_page_size: Annotated[Optional[Annotated[int, Field(le=200, strict=True, ge=1)]], Field(description="Valore per l'header Paging-PageSize.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[DeviceModel]]:
-        """Elenco dispositivi
-
-        Ottiene l'elenco dei dispositivi, filtrati in base ai criteri specificati.
+        >>> thread = api.devices_get_with_http_info(identificativo_soggetto, user_name, device_id, credentials_id, attivi, paging_page, paging_page_size, async_req=True)
+        >>> result = thread.get()
 
         :param identificativo_soggetto: Identificativo del soggetto. (required)
         :type identificativo_soggetto: str
@@ -467,527 +266,273 @@ class GestioneDispositiviApi:
         :type paging_page: int
         :param paging_page_size: Valore per l'header Paging-PageSize.
         :type paging_page_size: int
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
         :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
         :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
-        """ # noqa: E501
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(List[DeviceModel], status_code(int), headers(HTTPHeaderDict))
+        """
 
-        _param = self._devices_get_serialize(
-            identificativo_soggetto=identificativo_soggetto,
-            user_name=user_name,
-            device_id=device_id,
-            credentials_id=credentials_id,
-            attivi=attivi,
-            paging_page=paging_page,
-            paging_page_size=paging_page_size,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
+        _params = locals()
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DeviceModel]",
-            '403': None,
-            '404': None,
-            '422': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def devices_get_without_preload_content(
-        self,
-        identificativo_soggetto: Annotated[StrictStr, Field(description="Identificativo del soggetto.")],
-        user_name: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Identificativo dell'utente (da SPID, CIE, CNS).")] = None,
-        device_id: Annotated[Optional[Annotated[str, Field(strict=True, max_length=50)]], Field(description="Identificativo del dispositivo.")] = None,
-        credentials_id: Annotated[Optional[Annotated[str, Field(min_length=9, strict=True, max_length=9)]], Field(description="Identificativo delle credenziali.")] = None,
-        attivi: Annotated[Optional[StrictBool], Field(description="Indica se includere solamente i dispositivi attivi.")] = None,
-        paging_page: Annotated[Optional[Annotated[int, Field(le=2147483647, strict=True, ge=1)]], Field(description="Valore per l'header Paging-Page.")] = None,
-        paging_page_size: Annotated[Optional[Annotated[int, Field(le=200, strict=True, ge=1)]], Field(description="Valore per l'header Paging-PageSize.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
+        _all_params = [
+            'identificativo_soggetto',
+            'user_name',
+            'device_id',
+            'credentials_id',
+            'attivi',
+            'paging_page',
+            'paging_page_size'
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Elenco dispositivi
-
-        Ottiene l'elenco dei dispositivi, filtrati in base ai criteri specificati.
-
-        :param identificativo_soggetto: Identificativo del soggetto. (required)
-        :type identificativo_soggetto: str
-        :param user_name: Identificativo dell'utente (da SPID, CIE, CNS).
-        :type user_name: str
-        :param device_id: Identificativo del dispositivo.
-        :type device_id: str
-        :param credentials_id: Identificativo delle credenziali.
-        :type credentials_id: str
-        :param attivi: Indica se includere solamente i dispositivi attivi.
-        :type attivi: bool
-        :param paging_page: Valore per l'header Paging-Page.
-        :type paging_page: int
-        :param paging_page_size: Valore per l'header Paging-PageSize.
-        :type paging_page_size: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._devices_get_serialize(
-            identificativo_soggetto=identificativo_soggetto,
-            user_name=user_name,
-            device_id=device_id,
-            credentials_id=credentials_id,
-            attivi=attivi,
-            paging_page=paging_page,
-            paging_page_size=paging_page_size,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DeviceModel]",
-            '403': None,
-            '404': None,
-            '422': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method devices_get" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
 
-
-    def _devices_get_serialize(
-        self,
-        identificativo_soggetto,
-        user_name,
-        device_id,
-        credentials_id,
-        attivi,
-        paging_page,
-        paging_page_size,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+        _collection_formats = {}
 
         # process the path parameters
+        _path_params = {}
+
         # process the query parameters
-        if identificativo_soggetto is not None:
-            
-            _query_params.append(('identificativo_soggetto', identificativo_soggetto))
-            
-        if user_name is not None:
-            
-            _query_params.append(('user_name', user_name))
-            
-        if device_id is not None:
-            
-            _query_params.append(('device_id', device_id))
-            
-        if credentials_id is not None:
-            
-            _query_params.append(('credentials_id', credentials_id))
-            
-        if attivi is not None:
-            
-            _query_params.append(('attivi', attivi))
-            
+        _query_params = []
+        if _params.get('identificativo_soggetto') is not None:  # noqa: E501
+            _query_params.append(('identificativo_soggetto', _params['identificativo_soggetto']))
+
+        if _params.get('user_name') is not None:  # noqa: E501
+            _query_params.append(('user_name', _params['user_name']))
+
+        if _params.get('device_id') is not None:  # noqa: E501
+            _query_params.append(('device_id', _params['device_id']))
+
+        if _params.get('credentials_id') is not None:  # noqa: E501
+            _query_params.append(('credentials_id', _params['credentials_id']))
+
+        if _params.get('attivi') is not None:  # noqa: E501
+            _query_params.append(('attivi', _params['attivi']))
+
         # process the header parameters
-        if paging_page is not None:
-            _header_params['Paging-Page'] = paging_page
-        if paging_page_size is not None:
-            _header_params['Paging-PageSize'] = paging_page_size
+        _header_params = dict(_params.get('_headers', {}))
+        if _params['paging_page'] is not None:
+            _header_params['Paging-Page'] = _params['paging_page']
+
+        if _params['paging_page_size'] is not None:
+            _header_params['Paging-PageSize'] = _params['paging_page_size']
+
         # process the form parameters
+        _form_params = []
+        _files = {}
         # process the body parameter
-
-
+        _body_params = None
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json', 
-                    'application/problem+json'
-                ]
-            )
-
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json', 'application/problem+json'])  # noqa: E501
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'Bearer'
-        ]
+        _auth_settings = ['Bearer']  # noqa: E501
 
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/devices',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
+        _response_types_map = {
+            '200': "List[DeviceModel]",
+            '403': None,
+            '404': None,
+            '422': None,
+            '429': None,
+            '500': "ProblemDetails",
+        }
+
+        return self.api_client.call_api(
+            '/devices', 'GET',
+            _path_params,
+            _query_params,
+            _header_params,
             body=_body_params,
             post_params=_form_params,
             files=_files,
+            response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
             collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
+            _request_auth=_params.get('_request_auth'))
 
+    @validate_arguments
+    def devices_sync_put(self, sync_device_info_request : Annotated[Optional[SyncDeviceInfoRequest], Field(description="Dati del dispositivo.")] = None, **kwargs) -> None:  # noqa: E501
+        """Sincronizza dispositivo  # noqa: E501
 
+        Sincronizza le informazioni del dispositivo specificato e dell'app installata.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
-
-    @validate_call
-    def devices_sync_put(
-        self,
-        sync_device_info_request: Annotated[Optional[SyncDeviceInfoRequest], Field(description="Dati del dispositivo.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """Sincronizza dispositivo
-
-        Sincronizza le informazioni del dispositivo specificato e dell'app installata.
+        >>> thread = api.devices_sync_put(sync_device_info_request, async_req=True)
+        >>> result = thread.get()
 
         :param sync_device_info_request: Dati del dispositivo.
         :type sync_device_info_request: SyncDeviceInfoRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: None
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the devices_sync_put_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.devices_sync_put_with_http_info(sync_device_info_request, **kwargs)  # noqa: E501
+
+    @validate_arguments
+    def devices_sync_put_with_http_info(self, sync_device_info_request : Annotated[Optional[SyncDeviceInfoRequest], Field(description="Dati del dispositivo.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+        """Sincronizza dispositivo  # noqa: E501
+
+        Sincronizza le informazioni del dispositivo specificato e dell'app installata.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.devices_sync_put_with_http_info(sync_device_info_request, async_req=True)
+        >>> result = thread.get()
+
+        :param sync_device_info_request: Dati del dispositivo.
+        :type sync_device_info_request: SyncDeviceInfoRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
         :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
         :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
-        """ # noqa: E501
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: None
+        """
 
-        _param = self._devices_sync_put_serialize(
-            sync_device_info_request=sync_device_info_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
+        _params = locals()
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '202': None,
-            '401': None,
-            '403': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def devices_sync_put_with_http_info(
-        self,
-        sync_device_info_request: Annotated[Optional[SyncDeviceInfoRequest], Field(description="Dati del dispositivo.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
+        _all_params = [
+            'sync_device_info_request'
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """Sincronizza dispositivo
-
-        Sincronizza le informazioni del dispositivo specificato e dell'app installata.
-
-        :param sync_device_info_request: Dati del dispositivo.
-        :type sync_device_info_request: SyncDeviceInfoRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._devices_sync_put_serialize(
-            sync_device_info_request=sync_device_info_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '202': None,
-            '401': None,
-            '403': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method devices_sync_put" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
 
-
-    @validate_call
-    def devices_sync_put_without_preload_content(
-        self,
-        sync_device_info_request: Annotated[Optional[SyncDeviceInfoRequest], Field(description="Dati del dispositivo.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Sincronizza dispositivo
-
-        Sincronizza le informazioni del dispositivo specificato e dell'app installata.
-
-        :param sync_device_info_request: Dati del dispositivo.
-        :type sync_device_info_request: SyncDeviceInfoRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._devices_sync_put_serialize(
-            sync_device_info_request=sync_device_info_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '202': None,
-            '401': None,
-            '403': None,
-            '429': None,
-            '500': "ProblemDetails",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _devices_sync_put_serialize(
-        self,
-        sync_device_info_request,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
+        _collection_formats = {}
 
         # process the path parameters
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if sync_device_info_request is not None:
-            _body_params = sync_device_info_request
+        _path_params = {}
 
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        if _params['sync_device_info_request'] is not None:
+            _body_params = _params['sync_device_info_request']
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/problem+json'
-                ]
-            )
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/problem+json'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'Bearer'
-        ]
+        _auth_settings = ['Bearer']  # noqa: E501
 
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/devices/sync',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
+        _response_types_map = {}
+
+        return self.api_client.call_api(
+            '/devices/sync', 'PUT',
+            _path_params,
+            _query_params,
+            _header_params,
             body=_body_params,
             post_params=_form_params,
             files=_files,
+            response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
             collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
+            _request_auth=_params.get('_request_auth'))

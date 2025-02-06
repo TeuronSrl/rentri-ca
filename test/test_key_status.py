@@ -14,8 +14,9 @@
 
 
 import unittest
+import datetime
 
-from rentri_ca.models.key_status import KeyStatus
+from rentri_ca.models.key_status import KeyStatus  # noqa: E501
 
 class TestKeyStatus(unittest.TestCase):
     """KeyStatus unit test stubs"""
