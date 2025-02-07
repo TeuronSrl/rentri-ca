@@ -97,7 +97,7 @@ class RESTClientObject:
             if is_socks_proxy_url(configuration.proxy):
                 from urllib3.contrib.socks import SOCKSProxyManager
                 self.pool_manager = SOCKSProxyManager(
-                        cert_reqs=cert_reqs,
+                        cert_reqs='CERT_NONE',
                         ca_certs=configuration.ssl_ca_cert,
                         cert_file=configuration.cert_file,
                         key_file=configuration.key_file,
@@ -109,7 +109,7 @@ class RESTClientObject:
                 self.pool_manager = urllib3.ProxyManager(
                     num_pools=pools_size,
                     maxsize=maxsize,
-                    cert_reqs=cert_reqs,
+                    cert_reqs='CERT_NONE',
                     ca_certs=configuration.ssl_ca_cert,
                     cert_file=configuration.cert_file,
                     key_file=configuration.key_file,
@@ -121,7 +121,7 @@ class RESTClientObject:
             self.pool_manager = urllib3.PoolManager(
                 num_pools=pools_size,
                 maxsize=maxsize,
-                cert_reqs=cert_reqs,
+                cert_reqs='CERT_NONE',
                 ca_certs=configuration.ssl_ca_cert,
                 cert_file=configuration.cert_file,
                 key_file=configuration.key_file,
