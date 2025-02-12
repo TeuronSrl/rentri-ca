@@ -1,6 +1,6 @@
 # rentri_ca.GestioneCredenzialiApi
 
-All URIs are relative to *https://demoapi.rentri.gov.it/ca-rentri/v1.0*
+All URIs are relative to *https://api.rentri.gov.it/ca-rentri/v1.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,10 +31,10 @@ from rentri_ca.models.boarding_access_response import BoardingAccessResponse
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -113,10 +113,10 @@ from rentri_ca.models.change_pin_request import ChangePinRequest
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -194,10 +194,10 @@ import rentri_ca
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -275,10 +275,10 @@ from rentri_ca.models.credentials_model import CredentialsModel
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -356,10 +356,10 @@ from rentri_ca.models.reset_pin_request import ResetPinRequest
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -437,10 +437,10 @@ import rentri_ca
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -519,10 +519,10 @@ from rentri_ca.models.credentials_status_response import CredentialsStatusRespon
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters

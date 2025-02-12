@@ -9,7 +9,7 @@ info:
   x-summary: Servizio RENTRI CA
   x-api-id: rentrigov.sign
 servers:
-  - url: 'https://demoapi.rentri.gov.it/ca-rentri/v1.0'
+  - url: 'https://api.rentri.gov.it/ca-rentri/v1.0'
     description: Demo
 paths:
   '/ca/{num_seriale_ca_cert}':

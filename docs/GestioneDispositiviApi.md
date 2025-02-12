@@ -1,6 +1,6 @@
 # rentri_ca.GestioneDispositiviApi
 
-All URIs are relative to *https://demoapi.rentri.gov.it/ca-rentri/v1.0*
+All URIs are relative to *https://api.rentri.gov.it/ca-rentri/v1.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -27,10 +27,10 @@ from rentri_ca.models.device_model import DeviceModel
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -110,10 +110,10 @@ from rentri_ca.models.device_model import DeviceModel
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -204,10 +204,10 @@ from rentri_ca.models.sync_device_info_request import SyncDeviceInfoRequest
 from rentri_ca.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://demoapi.rentri.gov.it/ca-rentri/v1.0
+# Defining the host is optional and defaults to https://api.rentri.gov.it/ca-rentri/v1.0
 # See configuration.py for a list of all supported configuration parameters.
 configuration = rentri_ca.Configuration(
-    host = "https://demoapi.rentri.gov.it/ca-rentri/v1.0"
+    host = "https://api.rentri.gov.it/ca-rentri/v1.0"
 )
 
 # The client must configure the authentication and authorization parameters
